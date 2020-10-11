@@ -98,12 +98,28 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from "vue-property-decorator";
 // import { objAny } from "../../common/common-interface";
 @Component
 export default class HelpCenter extends Vue {
   public helpTwo(index: number) {
-    this.$router.push('/problem-list?type=' + index)
+    this.$router.push("/problem-list?type=" + index);
+  }
+  public help_skip(index: number) {
+    switch (index) {
+      case 1:
+        window.location.href = "/swiper/helpSwiper.html";
+        break;
+      case 2:
+        window.location.href = "/swiper/jdcq.html";
+        break;
+      case 3:
+        window.location.href = "/swiper/pddcq.html";
+        break;
+      case 4:
+        window.location.href = "/swiper/helpSwiperTwo.html";
+        break;
+    }
   }
 }
 </script>

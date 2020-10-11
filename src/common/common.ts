@@ -92,7 +92,7 @@ const common: objAny = {
     // if (configData.loginUrl) {
     //   win.location.href = configData.loginUrl;
     // } else {
-      win.history.go(0);
+    win.history.go(0);
     // }
   },
   parseParam(json: objAny): string {
