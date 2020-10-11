@@ -117,7 +117,7 @@ export default class MyPage extends Vue {
     box-sizing: border-box;
     display: flex;
     color: #fff;
-    padding-top: 10vw;
+    padding-top: 6vh;
     padding-bottom: 9vw;
     .my-head-img {
       width: 25%;
