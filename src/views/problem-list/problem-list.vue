@@ -20,10 +20,17 @@ export default class ProblemList extends Vue {
   private list: object[] = [];
 
   public sanji(index: number, item: objAny) {
-    if (index == 1) {
-      window.location.href = "./helpSwiperThree.html";
-    } else if (index == 2) {
-      window.location.href = "./helpSwiperThree.html";
+    const t: any = this.$route.query.type || "0";
+    const type: string = t || "0";
+    if (type == "0") {
+      if (index == 1) {
+        window.location.href = "/swiper/helpSwiperThree.html";
+      } else if (index == 2) {
+        window.location.href = "/swiper/helpSwiperThree.html";
+      } else {
+        this.$router.push("/problem-list/details");
+        this.$common.save("problem-list-details", item);
+      }
     } else {
       this.$router.push("/problem-list/details");
       this.$common.save("problem-list-details", item);
