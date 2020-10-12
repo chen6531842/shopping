@@ -1,12 +1,12 @@
 <template>
   <div class="my-about">
     <div class="logo-box">
-      <img src="../../assets/image/icon-1.png" alt="" />
-      <p>logo</p>
+      <img src="../../assets/image/logo.png" alt="" />
+      <p>省钱</p>
     </div>
     <div class="about-content">
       <p>
-        券猫是一个无需APP的<span class="red">优惠券探测神器</span
+        省钱是一个无需APP的<span class="red">优惠券探测神器</span
         >，每次网购多花10秒必有收获.
       </p>
       <p>
