@@ -4,7 +4,7 @@
  * @Date: 2020-06-19 09:26:08
  * @LastEditors: 陈钊贤
  * @Description: 
- * @LastEditTime: 2020-10-16 14:14:16
+ * @LastEditTime: 2020-10-16 18:45:37
 --> 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,15 +19,16 @@
       var goBackUrl = query('url');
       var appId = query('appId');
       var code = query('code');
-      if(code != ''){
-        let url = get('goBackUrl').replace('__','#');
+      if(code && code != ''){
+        var url = get('goBackUrl').replace('__','#');
+        console.log(url)
         url = url.indexOf('?') == -1 ? url + '?' : url;
-        let state = query('state');
+        var state = query('state');
         window.location.href = url + 'code=' + code +'&state='+state;
       }else{
         if( goBackUrl !=''){
           save('goBackUrl',goBackUrl);
-          let redirectUri = encodeURIComponent(window.location.href.replace(window.location.search, '').replace(window.location.hash, ''));
+          var redirectUri = encodeURIComponent(window.location.href.replace(window.location.search, '').replace(window.location.hash, ''));
           var authorizeUri = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appId+'&redirect_uri='+redirectUri+'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
           window.location.replace(authorizeUri);
            
