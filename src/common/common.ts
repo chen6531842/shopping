@@ -4,7 +4,7 @@
  * @Date: 2020-05-21 13:59:26
  * @LastEditors: 陈钊贤
  * @Description:
- * @LastEditTime: 2020-10-09 21:37:34
+ * @LastEditTime: 2020-10-16 14:10:54
  */
 
 import { objAny } from "../common/common-interface";
@@ -219,6 +219,29 @@ const common: objAny = {
       tableText +
       "</p></div>"
     );
+  },
+  request(paras: string): string {
+    const win: objAny = window;
+    const url = decodeURIComponent(win.location.href);
+    const paraString = url
+      .substring(url.indexOf("?") + 1, url.length)
+      .split("&");
+    const paraObj: objAny = {};
+    /* eslint-disable */
+    var j
+    for (var i = 0; (j = paraString[i]); i++) {
+      paraObj[j.substring(0, j.indexOf('=')).toLowerCase()] = j.substring(
+        j.indexOf('=') + 1,
+        j.length
+      )
+    }
+    /* eslint-enable */
+    const returnValue = paraObj[paras.toLowerCase()];
+    if (typeof returnValue === "undefined") {
+      return "";
+    } else {
+      return returnValue;
+    }
   }
 };
 

@@ -1,8 +1,9 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
-import helpCenter from "../views/help-center/help-center.vue";
-
+// import Home from "../views/Home.vue";
+// import helpCenter from "../views/help-center/help-center.vue";
+import store from "../store/index";
+import initFn from "../common/init";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -29,47 +30,74 @@ const routes: Array<RouteConfig> = [
   {
     path: "/my",
     name: "我的",
-    component: () => import("../views/my/my.vue")
+    component: () => import("../views/my/my.vue"),
+    meta: {
+      isLogin: true
+    }
   },
   {
     path: "/my-grade",
     name: "我的等级",
-    component: () => import("../views/my-grade/my-grade.vue")
+    component: () => import("../views/my-grade/my-grade.vue"),
+    meta: {
+      isLogin: true
+    }
   },
   {
     path: "/my-wallet",
     name: "提现",
-    component: () => import("../views/my-wallet/my-wallet.vue")
+    component: () => import("../views/my-wallet/my-wallet.vue"),
+    meta: {
+      isLogin: true
+    }
   },
   {
     path: "/withdrawal",
     name: "提现",
-    component: () => import("../views/withdrawal/withdrawal.vue")
+    component: () => import("../views/withdrawal/withdrawal.vue"),
+    meta: {
+      isLogin: true
+    }
   },
   {
     path: "/deposit",
     name: "提现明细",
-    component: () => import("../views/deposit/deposit.vue")
+    component: () => import("../views/deposit/deposit.vue"),
+    meta: {
+      isLogin: true
+    }
   },
   {
     path: "/income",
     name: "收入明细",
-    component: () => import("../views/income/income.vue")
+    component: () => import("../views/income/income.vue"),
+    meta: {
+      isLogin: true
+    }
   },
   {
     path: "/my-order",
     name: "我的订单",
-    component: () => import("../views/my-order/my-order.vue")
+    component: () => import("../views/my-order/my-order.vue"),
+    meta: {
+      isLogin: true
+    }
   },
   {
     path: "/my-team",
     name: "我的团队",
-    component: () => import("../views/my-team/my-team.vue")
+    component: () => import("../views/my-team/my-team.vue"),
+    meta: {
+      isLogin: true
+    }
   },
   {
     path: "/my-about",
     name: "关于我们",
-    component: () => import("../views/about/about.vue")
+    component: () => import("../views/about/about.vue"),
+    meta: {
+      isLogin: true
+    }
   }
 ];
 
@@ -77,6 +105,20 @@ const router = new VueRouter({
   // mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  const title = to.meta && to.meta.title;
+  if (title) {
+    document.title = title;
+  }
+  const state: any = store.state; // eslint-disable-line
+  console.log(to.meta);
+  if (to.meta.isLogin && !state.app.isLogin) {
+    initFn.init(next, to);
+  } else {
+    next();
+  }
 });
 
 export default router;

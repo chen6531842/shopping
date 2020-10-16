@@ -1,0 +1,78 @@
+<!--
+ * @Autor: 陈钊贤
+ * @Version: 1.0
+ * @Date: 2020-06-19 09:26:08
+ * @LastEditors: 陈钊贤
+ * @Description: 
+ * @LastEditTime: 2020-10-16 14:14:16
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>获取信息</title>
+</head>
+<body>
+  <script>
+    window.onload = function(){
+      var goBackUrl = query('url');
+      var appId = query('appId');
+      var code = query('code');
+      if(code != ''){
+        let url = get('goBackUrl').replace('__','#');
+        url = url.indexOf('?') == -1 ? url + '?' : url;
+        let state = query('state');
+        window.location.href = url + 'code=' + code +'&state='+state;
+      }else{
+        if( goBackUrl !=''){
+          save('goBackUrl',goBackUrl);
+          let redirectUri = encodeURIComponent(window.location.href.replace(window.location.search, '').replace(window.location.hash, ''));
+          var authorizeUri = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appId+'&redirect_uri='+redirectUri+'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
+          window.location.replace(authorizeUri);
+           
+        }else{
+          alert("信息有误,请关闭页面");
+        }
+      }
+    }
+
+    function query(name, urlStr) {
+      var url = urlStr || location.href;
+      return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(url) || ['', ''])[1].replace(/\+/g, '%20')) || false;
+    }
+    function save(item, str, type = 0) {
+    if (typeof (str) === 'object') {
+      str = JSON.stringify(str);
+    }
+    if (type) {
+      sessionStorage.removeItem(item);
+      sessionStorage[item] = str;
+    } else {
+      localStorage.removeItem(item);
+      localStorage[item] = str;
+    }
+  }
+  function get(item, type = 0) {
+    var value = null;
+    if (type) {
+      if (sessionStorage[item] !== undefined) {
+        value = sessionStorage[item];
+        if (value.indexOf('{') === 0 || value.indexOf('[') === 0) {
+          value = JSON.parse(value);
+        }
+      }
+      return value;
+    } else {
+      if (localStorage[item] !== undefined) {
+        value = localStorage[item];
+        if (value.indexOf('{') === 0 || value.indexOf('[') === 0) {
+          value = JSON.parse(value);
+        }
+      }
+      return value;
+    }
+  }
+  </script>
+</body>
+</html>
