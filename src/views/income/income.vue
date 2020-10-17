@@ -4,21 +4,21 @@
       <ul class="header-ul">
         <li
           class="header-item"
-          :class="{ active: active == 0 }"
+          :class="{ active: form.log_type == 0 }"
           @click="itemClick(0)"
         >
           <span>奖金收入</span>
         </li>
         <li
           class="header-item"
-          :class="{ active: active == 1 }"
+          :class="{ active: form.log_type == 1 }"
           @click="itemClick(1)"
         >
           <span>团队收入</span>
         </li>
         <li
           class="header-item"
-          :class="{ active: active == 2 }"
+          :class="{ active: form.log_type == 2 }"
           @click="itemClick(2)"
         >
           <span>其他收入</span>
@@ -36,11 +36,30 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
+import { incomeLogs } from "@/api/index";
 @Component
 export default class MyDeposit extends Vue {
-  private active = 0;
   public itemClick(index: number) {
-    this.active = index;
+    this.form.log_type = index;
+    this.form.page = 1;
+    this.list = [];
+    this.incomeLogs();
+  }
+  public list: object[] = [];
+  public form: objAny = {
+    page: 1,
+    page_size: 10,
+    log_type: 1
+  };
+
+  async incomeLogs() {
+    const ret = await incomeLogs(this.form);
+    if (ret.code == 0) {
+      this.list = this.list.concat(ret.data);
+    }
+  }
+  mounted() {
+    this.incomeLogs();
   }
 }
 </script>

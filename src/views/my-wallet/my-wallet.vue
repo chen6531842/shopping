@@ -2,7 +2,7 @@
   <div class="my-wallet">
     <div class="wallet-info">
       <div class="wallet-title">已结算金额(元)</div>
-      <div class="wallet-name">0.00</div>
+      <div class="wallet-name">{{ walletInfo.money }}</div>
       <div class="wallet-btn">
         <button class="my-btn" @click="withdrawal">支付宝提现</button>
       </div>
@@ -11,7 +11,7 @@
       <div class="money-type-item center-box" @click="goOrder">
         <div class="type-item-center">
           <p class="name">待结算奖金(元)</p>
-          <p class="value">0.00</p>
+          <p class="value">{{ walletInfo.unsettled }}</p>
         </div>
         <img
           src="../../assets/image/icon-right.png"
@@ -22,7 +22,7 @@
       <div class="money-type-item  center-box">
         <div class="type-item-center">
           <p class="name">团队累计奖金(元)</p>
-          <p class="value">0.00</p>
+          <p class="value">{{ walletInfo.team_income }}</p>
         </div>
       </div>
     </div>
@@ -49,13 +49,28 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
+import { getWalletInfo } from "@/api/index";
+import { Toast } from "vant";
 @Component
 export default class MyWallet extends Vue {
+  private walletInfo: objAny = {};
   public withdrawal() {
-    this.$router.push("/withdrawal");
+    // this.$router.push("/withdrawal");
+    this.$router.push("/withdrawal-sub");
   }
   public goOrder() {
     this.$router.push("/my-order");
+  }
+  async getWalletInfo() {
+    const ret = await getWalletInfo({});
+    if (ret.code == 0) {
+      this.walletInfo = ret.data;
+    } else {
+      Toast(ret.msg);
+    }
+  }
+  mounted() {
+    this.getWalletInfo();
   }
 }
 </script>

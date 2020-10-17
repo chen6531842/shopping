@@ -3,7 +3,7 @@
     <div class="my-header">
       <div class="my-head-img">
         <div class="img-box">
-          <img src="../../assets/img/help3_an.png" alt="" />
+          <img :src="app.userInfo.headimgurl" alt="" />
           <router-link to="/my-grade">
             <div class="my-grade">
               青铜
@@ -12,8 +12,8 @@
         </div>
       </div>
       <div class="my-flex">
-        <div class="my-name">贤哥</div>
-        <div class="my-id">ID:15454</div>
+        <div class="my-name">{{ app.userInfo.nickname }}</div>
+        <div class="my-id">ID:{{ app.userInfo.id }}</div>
       </div>
       <div class="my-center">已累计为您省0.00元</div>
     </div>
@@ -42,7 +42,7 @@
       </router-link>
     </div>
     <div class="my-cell-box">
-      <div class="cell-item" @click="inviteFriends = true">
+      <div class="cell-item" @click="openQrcode">
         <img src="../../assets/image/icon-3.png" class="cell-icon" alt="" />
         <span class="cell-flex">邀请好友</span>
         <img
@@ -101,9 +101,34 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
+import { State } from "vuex-class";
+import { getUserInfo, getUserQrcode } from "@/api/index";
+import { Toast } from "vant";
 @Component
 export default class MyPage extends Vue {
+  @State("app") app!: objAny;
   private inviteFriends = false;
+
+  async getUserInfo() {
+    const ret = await getUserInfo({});
+    if (ret.code == 0) {
+    } else {
+      Toast(ret.msg);
+    }
+  }
+
+  async openQrcode() {
+    this.inviteFriends = true;
+    const ret = await getUserQrcode({});
+    if (ret.code == 0) {
+    } else {
+      Toast(ret.msg);
+    }
+  }
+
+  mounted() {
+    this.getUserInfo();
+  }
 }
 </script>
 <style lang="less">

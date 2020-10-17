@@ -1,7 +1,7 @@
 import Vue from "vue";
 import axios from "axios";
 import { Toast } from "vant";
-// import store from '../store/ndex'
+import store from "../store/index";
 import myConfig from "../config/config";
 import { objAny } from "../common/common-interface";
 // import qs from 'qs';
@@ -43,10 +43,14 @@ axios.interceptors.response.use(
 Vue.prototype.$axios = axios;
 
 Vue.prototype.$postHeaders = function(data: objAny) {
-  const token = Vue.prototype.$common.get("token");
-  let headers = {
-    Authorization: "Bearer " + token
+  const state: any = store.state; // eslint-disable-line
+  const userInfo = state.app.userInfo;
+  let headers: objAny = {
+    "Content-Type": "application/json"
   };
+  if (userInfo) {
+    headers["x-token"] = userInfo.token;
+  }
   if (data) {
     headers = Object.assign(headers, data);
   }
@@ -120,7 +124,7 @@ function request(
   //   url = myConfig.ajaxUrl + url;
   // }
   let toast: objAny;
-  if (showLoading) {
+  if (!showLoading) {
     toast = Toast.loading({
       duration: 0,
       forbidClick: true,
@@ -129,7 +133,7 @@ function request(
   }
 
   // 请求
-  return new Promise((resolve, reject) => {
+  return new Promise<any>((resolve, reject) => {
     const axiosConfig: objAny = {
       method: method,
       url: url,
@@ -148,6 +152,8 @@ function request(
     axios(axiosConfig)
       .then(result => {
         clearLoading(toast);
+        if (result.data.code == 10000) {
+        }
         resolve(result.data);
       })
       .catch(error => {

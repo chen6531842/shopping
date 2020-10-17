@@ -98,6 +98,16 @@ const routes: Array<RouteConfig> = [
     meta: {
       isLogin: true
     }
+  },
+  {
+    path: "/wx",
+    name: "获取用户信息",
+    component: () => import("../views/wx/wx.vue")
+  },
+  {
+    path: "/withdrawal-sub",
+    name: "获取用户信息",
+    component: () => import("../views/withdrawal-sub/withdrawal-sub.vue")
   }
 ];
 
@@ -113,7 +123,6 @@ router.beforeEach((to, from, next) => {
     document.title = title;
   }
   const state: any = store.state; // eslint-disable-line
-  console.log(to.meta);
   if (to.meta.isLogin && !state.app.isLogin) {
     initFn.init(next, to);
   } else {

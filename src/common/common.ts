@@ -4,7 +4,7 @@
  * @Date: 2020-05-21 13:59:26
  * @LastEditors: 陈钊贤
  * @Description:
- * @LastEditTime: 2020-10-16 14:10:54
+ * @LastEditTime: 2020-10-17 23:49:12
  */
 
 import { objAny } from "../common/common-interface";
@@ -94,6 +94,11 @@ const common: objAny = {
     // } else {
     win.history.go(0);
     // }
+  },
+  goBack(index?: number) {
+    const i = index || -1;
+    const win: objAny = window;
+    win.history.go(i);
   },
   parseParam(json: objAny): string {
     const params = Object.keys(json)

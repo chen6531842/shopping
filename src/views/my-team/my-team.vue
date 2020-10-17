@@ -11,11 +11,29 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
+import { getUserMyTeam } from "@/api/index";
+import { Toast } from "vant";
 @Component
 export default class MyTeam extends Vue {
   private active = 0;
   public itemClick(index: number) {
     this.active = index;
+  }
+  public form: objAny = {
+    page: 1,
+    page_size: 10
+  };
+  public list: object[] = [];
+
+  async getUserMyTeam() {
+    const ret = await getUserMyTeam(this.form);
+    if (ret.code == 0) {
+      this.list = this.list.concat(ret.data);
+    }
+  }
+
+  mounted() {
+    this.getUserMyTeam();
   }
 }
 </script>
