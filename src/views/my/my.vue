@@ -6,7 +6,7 @@
           <img :src="userInfo.headimgurl" alt="" />
           <router-link to="/my-grade">
             <div class="my-grade">
-              青铜
+              {{ userInfo.level == "1" ? "付费会员" : "普通用户" }}
             </div>
           </router-link>
         </div>
@@ -169,12 +169,13 @@ export default class MyPage extends Vue {
         }
         .my-grade {
           position: absolute;
-          width: 12.2vw;
+          width: 16.2vw;
+          // padding: 0 1vw;
           height: 4.8vw;
           background: #fff;
           bottom: -2vw;
           left: 50%;
-          margin-left: -6.1vw;
+          margin-left: -8.1vw;
           border-radius: 2.4vw;
           font-size: 3.2vw;
           display: flex;

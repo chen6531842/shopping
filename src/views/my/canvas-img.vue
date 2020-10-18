@@ -44,7 +44,7 @@ export default class CanvasImg extends Vue {
     canvas2.width = w;
     canvas2.height = h;
 
-    const bg = await this.loadImg("/image/test.png");
+    const bg = await this.loadImg("/common/test.png");
     if (bg) {
       myctx.drawImage(bg, 0, 0, canvas2.width, canvas2.height);
     }
