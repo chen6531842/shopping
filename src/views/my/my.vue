@@ -3,7 +3,7 @@
     <div class="my-header">
       <div class="my-head-img">
         <div class="img-box">
-          <img :src="app.userInfo.headimgurl" alt="" />
+          <img :src="userInfo.headimgurl" alt="" />
           <router-link to="/my-grade">
             <div class="my-grade">
               青铜
@@ -12,8 +12,8 @@
         </div>
       </div>
       <div class="my-flex">
-        <div class="my-name">{{ app.userInfo.nickname }}</div>
-        <div class="my-id">ID:{{ app.userInfo.id }}</div>
+        <div class="my-name">{{ userInfo.nickname }}</div>
+        <div class="my-id">ID:{{ userInfo.id }}</div>
       </div>
       <div class="my-center">已累计为您省0.00元</div>
     </div>
@@ -87,7 +87,7 @@
         </div>
       </router-link>
     </div>
-    <div class="invite-friends" v-if="inviteFriends">
+    <!-- <div class="invite-friends" v-if="inviteFriends">
       <div class="invite-friends-centent">
         <img src="../../assets/image/test.jpg" alt="" />
         <p>
@@ -95,7 +95,8 @@
         </p>
       </div>
       <div class="close" @click="inviteFriends = false"></div>
-    </div>
+    </div> -->
+    <canvas-img ref="canvasImg"></canvas-img>
   </div>
 </template>
 <script lang="ts">
@@ -103,27 +104,35 @@ import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
 import { State } from "vuex-class";
 import { getUserInfo, getUserQrcode } from "@/api/index";
+import canvasImg from "./canvas-img.vue";
 import { Toast } from "vant";
-@Component
+@Component({
+  components: {
+    "canvas-img": canvasImg
+  }
+})
 export default class MyPage extends Vue {
   @State("app") app!: objAny;
   private inviteFriends = false;
-
+  private userInfo: objAny = {};
   async getUserInfo() {
     const ret = await getUserInfo({});
     if (ret.code == 0) {
+      this.userInfo = ret.data;
     } else {
       Toast(ret.msg);
     }
   }
 
-  async openQrcode() {
-    this.inviteFriends = true;
-    const ret = await getUserQrcode({});
-    if (ret.code == 0) {
-    } else {
-      Toast(ret.msg);
-    }
+  openQrcode() {
+    const canvasImg: objAny = this.$refs.canvasImg;
+    canvasImg.open(this.userInfo);
+    // this.inviteFriends = true;
+    // const ret = await getUserQrcode({});
+    // if (ret.code == 0) {
+    // } else {
+    //   Toast(ret.msg);
+    // }
   }
 
   mounted() {
