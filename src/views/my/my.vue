@@ -15,7 +15,9 @@
         <div class="my-name">{{ userInfo.nickname }}</div>
         <div class="my-id">ID:{{ userInfo.id }}</div>
       </div>
-      <div class="my-center">已累计为您省0.00元</div>
+      <div class="my-center">
+        已累计为您省{{ userInfo.total_saving || 0 }}元
+      </div>
     </div>
     <div class="my-cell-box">
       <router-link to="/my-wallet">
