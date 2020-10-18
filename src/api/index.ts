@@ -1,9 +1,9 @@
 import {
-  requestGet,
-  requestPost,
-  requestDel,
+  // requestGet,
+  requestPost
+  // requestDel,
   // requestPostForm,
-  requestPostMultipart
+  // requestPostMultipart
 } from "./request";
 import { objAny } from "../common/common-interface";
 /**
@@ -65,4 +65,16 @@ export const getUserQrcode = (data: objAny, config = false) => {
  */
 export const getUserMyTeam = (data: objAny, config = false) => {
   return requestPost("/v1/user/myTeam", data, config);
+};
+/**
+ *   我的订单
+ */
+export const getOrderList = (data: objAny, config = false) => {
+  return requestPost("/v1/order/list", data, config);
+};
+/**
+ *   我的支付宝
+ */
+export const myAlipay = (data: objAny, config = false) => {
+  return requestPost("/v1/wallet/myAlipay", data, config);
 };

@@ -1,18 +1,18 @@
 <template>
   <div class="withdrawal-sub">
-    <header class="withdrawal-header">
+    <header class="withdrawal-header" @click="goUpdata">
       <div class="info">
         <img src="../../assets/image/pay.png" alt="" />
         <p class="user">
-          <span class="name">收款人:贤哥</span>
-          <span class="acc">收款人账号:18689494452</span>
+          <span class="name">收款人:{{ wallet.name }}</span>
+          <span class="acc">收款人账号:{{ wallet.account }}</span>
         </p>
       </div>
       <p class="change">修改></p>
     </header>
     <div class="money">
       <p class="title">提现金额</p>
-      <p class="number">￥0.00</p>
+      <p class="number">￥{{ walletInfo.money }}</p>
     </div>
     <div class="submitPu" @click="withdrawApply">
       预计24小时内到账，确认提现
@@ -22,14 +22,46 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
-import { withdrawApply } from "@/api/index";
+import { withdrawApply, myAlipay, getWalletInfo } from "@/api/index";
+import { Toast } from "vant";
 @Component
 export default class WithdrawalSub extends Vue {
+  private wallet: objAny = {};
+  private walletInfo: objAny = {};
+
   async withdrawApply() {
     const ret = await withdrawApply({
-      card_id: "",
-      money: ""
+      card_id: this.walletInfo.id,
+      money: this.walletInfo.money
     });
+    if (ret.code == 0) {
+      Toast("提交成功");
+    } else {
+      Toast(ret.msg);
+    }
+  }
+  async getWalletInfo() {
+    const ret = await getWalletInfo({});
+    if (ret.code == 0) {
+      this.walletInfo = ret.data;
+    } else {
+      Toast(ret.msg);
+    }
+  }
+  async myAlipay() {
+    const ret = await myAlipay({});
+    if (ret.code == 0) {
+      this.wallet = ret.data || {};
+    } else {
+      Toast(ret.msg);
+    }
+  }
+  public goUpdata() {
+    this.$router.push("/withdrawal");
+  }
+  mounted() {
+    this.getWalletInfo();
+    this.myAlipay();
   }
 }
 </script>

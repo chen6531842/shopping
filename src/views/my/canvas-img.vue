@@ -111,6 +111,7 @@ export default class CanvasImg extends Vue {
     position: absolute;
   }
   .invite-friends-centent {
+    overflow: hidden;
     width: 85vw;
     height: 88vw;
     background: #fff;

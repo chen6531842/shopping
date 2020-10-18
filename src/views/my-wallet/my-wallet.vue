@@ -49,14 +49,19 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
-import { getWalletInfo } from "@/api/index";
+import { getWalletInfo, myAlipay } from "@/api/index";
 import { Toast } from "vant";
 @Component
 export default class MyWallet extends Vue {
   private walletInfo: objAny = {};
+  private wallet: objAny = {};
   public withdrawal() {
-    // this.$router.push("/withdrawal");
-    this.$router.push("/withdrawal-sub");
+    //
+    if (this.wallet.id) {
+      this.$router.push("/withdrawal-sub");
+    } else {
+      this.$router.push("/withdrawal");
+    }
   }
   public goOrder() {
     this.$router.push("/my-order");
@@ -69,8 +74,18 @@ export default class MyWallet extends Vue {
       Toast(ret.msg);
     }
   }
+  async myAlipay() {
+    const ret = await myAlipay({});
+    if (ret.code == 0) {
+      this.wallet = ret.data || {};
+    } else {
+      Toast(ret.msg);
+    }
+  }
+
   mounted() {
     this.getWalletInfo();
+    this.myAlipay();
   }
 }
 </script>

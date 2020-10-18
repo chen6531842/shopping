@@ -72,7 +72,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
-import { bindAlipayApply, bindAlipaySubmit } from "@/api/index";
+import { bindAlipayApply, bindAlipaySubmit, myAlipay } from "@/api/index";
 import { Toast } from "vant";
 @Component
 export default class Withdrawal extends Vue {
@@ -143,6 +143,22 @@ export default class Withdrawal extends Vue {
         Toast(ret.msg);
       }
     }
+  }
+  async myAlipay() {
+    const ret = await myAlipay({});
+    if (ret.code == 0 && ret.data.id) {
+      // this.wallet = ret.data || {};
+      const data = ret.data;
+      this.formData.name = data.name;
+      this.formData.phone = data.phone;
+      this.formData.account = data.account;
+      this.isBtn();
+    } else {
+      Toast(ret.msg);
+    }
+  }
+  mounted() {
+    this.myAlipay();
   }
 }
 </script>
