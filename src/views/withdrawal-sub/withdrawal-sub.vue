@@ -30,14 +30,18 @@ export default class WithdrawalSub extends Vue {
   private walletInfo: objAny = {};
 
   async withdrawApply() {
-    const ret = await withdrawApply({
-      card_id: this.walletInfo.id,
-      money: this.walletInfo.money
-    });
-    if (ret.code == 0) {
-      Toast("提交成功");
+    if (this.walletInfo.money > 0) {
+      const ret = await withdrawApply({
+        card_id: this.walletInfo.id,
+        money: this.walletInfo.money
+      });
+      if (ret.code == 0) {
+        Toast("提交成功");
+      } else {
+        Toast(ret.msg);
+      }
     } else {
-      Toast(ret.msg);
+      Toast("提现金额不足");
     }
   }
   async getWalletInfo() {

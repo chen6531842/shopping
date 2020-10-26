@@ -125,7 +125,7 @@ export default class Withdrawal extends Vue {
   async bindAlipayApply() {
     const ret = await bindAlipayApply(this.formData);
     if (ret.code == 0) {
-      this.time = 5;
+      this.time = 60;
       this.timeFn();
       // this.walletInfo = ret.data;
     } else {
