@@ -57,8 +57,13 @@ export const withdrawLogs = (data: objAny, config = false) => {
 /**
  *   个人分享码
  */
-export const getUserQrcode = (data: objAny, config = false) => {
-  return requestPost("/v1/user/qrcode", data, config);
+export const getUserQrcode = (
+  data: objAny,
+  config = false,
+  header: objAny = {}
+) => {
+  header["responseType"] = "arraybuffer";
+  return requestPost("/v1/user/qrcode", data, config, header);
 };
 /**
  *   我的团队

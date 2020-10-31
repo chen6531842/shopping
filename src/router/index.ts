@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import { objAny } from "../common/common-interface";
 // import Home from "../views/Home.vue";
 // import helpCenter from "../views/help-center/help-center.vue";
 import store from "../store/index";
@@ -118,11 +119,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const title = to.meta && to.meta.title;
-  if (title) {
-    document.title = title;
-  }
-  const state: any = store.state; // eslint-disable-line
+  const doc: objAny = document;
+  doc.title = to.name;
+
+  const state: any = store.state // eslint-disable-line
   if (to.meta.isLogin && !state.app.isLogin) {
     initFn.init(next, to);
   } else {

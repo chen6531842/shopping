@@ -43,7 +43,7 @@ axios.interceptors.response.use(
 Vue.prototype.$axios = axios;
 
 Vue.prototype.$postHeaders = function(data: objAny) {
-  const state: any = store.state; // eslint-disable-line
+  const state: any = store.state // eslint-disable-line
   const userInfo = state.app.userInfo;
   let headers: objAny = {
     "Content-Type": "application/json"
@@ -61,9 +61,10 @@ export const requestPost = function(
   url: string,
   params: objAny,
   showLoading: boolean,
-  cancelToken?: objAny
+  header?: objAny
 ) {
-  return request(url, "post", {}, params, showLoading, cancelToken);
+  header = header || {};
+  return request(url, "post", header, params, showLoading, {});
 };
 // export const requestPostForm = function (url:string, params:objAny, showLoading:boolean, cancelToken?:objAny) {
 //   return request(url, 'post', {

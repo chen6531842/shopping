@@ -50,26 +50,25 @@
         @load="onLoad"
       >
         <ul class="order-ul">
-          <li class="order-item">
+          <li class="order-item" v-for="(item, index) in list" :key="index">
             <div class="order-head">
               <div class="order-type">
-                <span>京东</span>
-                订单编号：134153288683
+                <span>{{ platform[item.platform] }}</span>
+                订单编号：{{ item.order_sn }}
               </div>
             </div>
             <div class="order-info">
               <div class="title">
-                F.L 超大号鼠标垫 高灵敏可水洗锁边加厚键盘鼠标垫超大
-                游戏动漫办公精品 机器猫800*300
+                {{ item.goods_name }}
               </div>
               <div class="order-status-list">
-                <div class="tag">未收货</div>
+                <div class="tag">{{ orderStatus[item.order_status] }}</div>
               </div>
-              <div class="order-time">2020-02-11</div>
+              <div class="order-time">{{ item.order_create_time }}</div>
             </div>
             <div class="order-money">
-              <div class="od-money">实付金额: 12.9</div>
-              <div class="my-money">奖金:¥0.05</div>
+              <div class="od-money">实付金额: ¥{{ item.order_amount }}</div>
+              <div class="my-money">奖金:¥{{ item.user_award }}</div>
             </div>
           </li>
         </ul>
@@ -94,15 +93,30 @@ import { List, Toast } from "vant";
 export default class MyOrder extends Vue {
   private loading = false;
   private finished = false;
-
+  private platform = {
+    jd: "京东",
+    tb: "淘宝",
+    pdd: "拼多多"
+  };
+  private orderStatus: objAny = {
+    "-1": "已支付",
+    "0": "已支付",
+    "1": "已成团",
+    "2": "确认收货",
+    "3": "审核成功",
+    "4": "审核失败",
+    "5": "已经结算",
+    "8": "非多多进宝商品",
+    "9": "已处罚"
+  };
   public list: object[] = [];
   public form: objAny = {
-    page: 1,
+    page: 0,
     page_size: 10,
     status: 0
   };
   public itemClick(index: number) {
-    this.form.log_type = index;
+    this.form.status = index;
     this.form.page = 1;
     this.list = [];
     this.finished = true;
@@ -113,7 +127,7 @@ export default class MyOrder extends Vue {
     const ret = await getOrderList(this.form);
     if (ret.code == 0) {
       this.list = this.list.concat(ret.data.rows);
-      if (ret.data.total_rows >= ret.data.page) {
+      if (ret.data.total_rows >= ret.data.page || ret.data.total_page == 0) {
         this.finished = true;
       }
     } else {
@@ -248,13 +262,13 @@ export default class MyOrder extends Vue {
           margin-top: 2vw;
           margin-bottom: 4vw;
           .tag {
-            width: 12vw;
+            padding: 0 2vw;
             height: 4.8vw;
             font-size: 3vw;
             color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: inline-block;
+            line-height: 4.8vw;
+            text-align: center;
             border-radius: 2.4vw;
             background: #ff8400;
             margin-right: 2vw;
