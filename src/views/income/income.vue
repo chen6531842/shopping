@@ -95,7 +95,7 @@ export default class Myincome extends Vue {
     const ret = await incomeLogs(this.form);
     if (ret.code == 0) {
       this.list = this.list.concat(ret.data.rows);
-      if (ret.data.total_rows >= ret.data.page) {
+      if (ret.data.total_rows >= ret.data.page || ret.data.total_page == 0) {
         this.finished = true;
       }
     } else {

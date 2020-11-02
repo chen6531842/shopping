@@ -92,7 +92,7 @@ export default class CanvasImg extends Vue {
 
     const canvas2: any = win.document.getElementById("canvas-img");
     const myctx = canvas2.getContext("2d");
-    const t = 4;
+    const t = 2;
     const w = canvas2.width * t;
     const h = canvas2.height * t;
     canvas2.width = w;

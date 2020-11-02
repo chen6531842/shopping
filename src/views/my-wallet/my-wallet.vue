@@ -4,7 +4,12 @@
       <div class="wallet-title">已结算金额(元)</div>
       <div class="wallet-name">{{ walletInfo.money }}</div>
       <div class="wallet-btn">
-        <button class="my-btn" @click="withdrawal">支付宝提现</button>
+        <!-- <div class="wallet-btn-flex">
+          <button class="my-btn wx" @click="withdrawal">微信提现</button>
+        </div> -->
+        <div class="wallet-btn-flex">
+          <button class="my-btn" @click="withdrawal">支付宝提现</button>
+        </div>
       </div>
     </div>
     <div class="money-type center-box">
@@ -112,6 +117,10 @@ export default class MyWallet extends Vue {
     .wallet-btn {
       padding-bottom: 9.3vw;
       text-align: center;
+      display: flex;
+      .wallet-btn-flex {
+        flex: 1;
+      }
       .my-btn {
         border: none;
         width: 37vw;
@@ -120,6 +129,9 @@ export default class MyWallet extends Vue {
         color: #fff;
         background: #00aaef;
         font-size: 4.2vw;
+      }
+      .my-btn.wx {
+        background: rgba(92, 201, 58);
       }
     }
   }
