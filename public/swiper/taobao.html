@@ -2,19 +2,20 @@
 <!-- saved from url=(0045)http://www.fansx.cn/wechat/ac/helpSwiper.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
-  <title>商口领券</title>
+  <title>商品领券</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="./css/swiper-4.3.5.min.css">
-  <link rel="stylesheet" href="./css/taobao.css">
+  <link rel="stylesheet" href="./css/taobao.css?a=1">
 </head>
 <body>
   <div class="content-body">
     <div class="swiper-box">
-      <div class="swiper-container swiper-notification">
+      <div class="swiper-slide">
+        <!-- <img src="https://img.alicdn.com/i2/2088045547/O1CN01VmUUmr1qqZbtgfw3L_!!2088045547.jpg" alt=""> -->
+      </div>
+      <!-- <div class="swiper-container swiper-notification">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img src="https://img.alicdn.com/i2/2088045547/O1CN01VmUUmr1qqZbtgfw3L_!!2088045547.jpg" alt="">
-          </div>
+          
           <div class="swiper-slide">slider2</div>
           <div class="swiper-slide">slider3</div>
         </div>
@@ -23,16 +24,18 @@
           <span class="swiper-pagination-bullet"></span>
           <span class="swiper-pagination-bullet"></span>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="shopping-info">
-      <div class="title"><span>【禁止使用红包】</span>【当天发]Huawei/华为畅享20 Plus 5G手机官方旗舰店nova7新品p40pro官网8se直降mate40正品30荣耀10学生机9x</div>
+      <div class="title">
+        <span>【禁止使用红包】</span>
+      【当天发]Huawei/华为畅享20 Plus 5G手机官方旗舰店nova7新品p40pro官网8se直降mate40正品30荣耀10学生机9x</div>
       <div class="price-info">
         <div class="price-info-flex">
-          在售价 ￥ <span class="money">2299.00</span>
+          在售价 ￥ <span class="money"></span>
         </div>
         <div class="price-info-flex">
-          约返现 ￥ <span class="my-money">9.65</span>
+          约返现 ￥ <span class="my-money"></span>
         </div>
       </div>
       <div class="beatWord">
@@ -50,19 +53,108 @@
     </div>
   </div>
   <div class="bottom-fixed">
-    <div class="bottom-fixed-flex share-btn">生成海报</div>
-    <div class="bottom-fixed-flex copy-btn">一键复制</div>
+    <!-- <div class="bottom-fixed-flex share-btn">生成海报</div> -->
+    <div class="bottom-fixed-flex copy-btn" onclick="copyText()">一键复制</div>
   </div>
+  <div class="msg"></div>
   <script src="./js/swiper-4.3.5.min.js"></script>
 	<script src="./js/jquery-2.1.0.min.js"></script>
   <!-- Initialize Swiper -->
   <script>
-    var mySwiper = new Swiper('.swiper-container', {
-      autoplay: true,//可选选项，自动滑动
-      pagination: {
-        el: '.swiper-pagination',
-      },
-    })
+  var shoppingInfo = null;
+    window.onload = function(){
+      var item_id = query('item_id');
+      var award = query('award');
+      var item_url = query('item_url');
+      var zk_final_price = query('zk_final_price');
+      var long_item_tpwd = query('long_item_tpwd');
+      $.ajax({
+        url: "https://sq.xhxim.com/v1/order/taobao/goodsInfo",
+        data: JSON.stringify({item_id: item_id,item_url: item_url}),
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        // headers: {
+        //   "Content-Type": "application/json"
+        // },
+        success: function(ret) {
+          if(ret.code == 0){
+            var data = ret.data;
+            shoppingInfo = data;
+            $('.title').html(data.title);
+            $('.money').html(zk_final_price);
+            $('.my-money').html(award);
+
+            let html = [];
+            var small_images = data.small_images.string;
+            for(var i in small_images){
+              html.push('<img src="'+small_images[i]+'"">');
+            }
+            $('.detail-img-box').html(html.join(''));
+            $('.swiper-slide').html('<img src="'+data.pict_url+'"">')
+          }
+          
+        }
+
+      })
+    }
+    function init(){
+      var mySwiper = new Swiper('.swiper-container', {
+        autoplay: true,//可选选项，自动滑动
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      })
+    }
+
+    function query(name, urlStr) {
+      var url = urlStr || location.href;
+      return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(url) || ['', ''])[1].replace(/\+/g, '%20')) || false;
+    }
+
+    function copyText(text){
+	    	var Url2 = shoppingInfo ? shoppingInfo.tkl : '';
+		   	if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {//区分iPhone设备  
+		    	var span = document.createElement('span');
+			        span.innerHTML = Url2;
+			        //span.style.display='none';
+			        span.id='copyTextSpan';
+			        document.body.appendChild(span);
+			    	window.getSelection().removeAllRanges();//这段代码必须放在前面否则无效  
+			        var range = document.createRange();  
+			        // 选中需要复制的节点  
+			        range.selectNode(span);  
+			        // 执行选中元素  
+			        window.getSelection().addRange(range);  
+			        // 执行 copy 操作  
+			        var successful = document.execCommand('copy');  
+
+			        // 移除选中的元素  
+			        window.getSelection().removeAllRanges(); 
+			        span.parentNode.removeChild(span);
+				    msg('复制成功');
+		    }else{
+		    	var oInput = document.createElement('input');
+		        oInput.value = Url2;
+		        document.body.appendChild(oInput);
+		        oInput.select(); // 选择对象
+		        document.execCommand("Copy"); // 执行浏览器复制命令
+		        oInput.className = 'oInput';
+		        oInput.style.display='none';
+		        oInput.parentNode.removeChild(oInput);
+		        msg('复制成功');
+		    }
+		    
+		}
+    var timer = null;
+    function msg(text){
+      $('.msg').html(text);
+      $('.msg').show();
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        $('.msg').hide();
+      }, 2000);
+    }
   </script>
 </body>
 </html>

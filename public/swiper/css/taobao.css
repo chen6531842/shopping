@@ -106,3 +106,17 @@
 .content-body{
   padding-bottom: 50px;
 }
+.msg{
+  position:fixed;
+  padding: 10px;
+  background:rgba(0,0,0,0.8);
+  color:#fff;
+  font-size: 14px;
+  border-radius: 4px;
+  left: 50%;
+  top:50%;
+  -webkit-transform:translate(-50%, -50%);
+  transform:translate(-50%, -50%);
+  display:none;
+  z-index:10
+}
