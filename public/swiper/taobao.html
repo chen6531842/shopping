@@ -54,7 +54,7 @@
   </div>
   <div class="bottom-fixed">
     <!-- <div class="bottom-fixed-flex share-btn">生成海报</div> -->
-    <div class="bottom-fixed-flex copy-btn" onclick="copyText()">一键复制</div>
+    <div class="bottom-fixed-flex copy-btn" style="width:100%" onclick="copyText()">一键复制</div>
   </div>
   <div class="msg"></div>
   <script src="./js/swiper-4.3.5.min.js"></script>
@@ -113,7 +113,15 @@
     }
 
     function copyText(text){
-	    	var Url2 = shoppingInfo ? shoppingInfo.tkl : '';
+      if(!shoppingInfo){
+        return;
+      }
+      var Url2 = '';
+      if(isIOS()){
+        Url2 = shoppingInfo.tkl
+      }else{
+        Url2 = shoppingInfo.password_simple
+      }
 		   	if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {//区分iPhone设备  
 		    	var span = document.createElement('span');
 			        span.innerHTML = Url2;
@@ -154,6 +162,15 @@
       timer = setTimeout(() => {
         $('.msg').hide();
       }, 2000);
+    }
+
+    function isIOS() {
+      var ua = navigator.userAgent.toLowerCase();
+      if (/iphone|ipad|ipod/.test(ua)) {
+        return true;
+      } else { //  android/.test(ua)
+        return false;
+      }
     }
   </script>
 </body>
