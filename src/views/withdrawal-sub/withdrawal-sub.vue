@@ -12,7 +12,11 @@
     </header>
     <div class="money">
       <p class="title">提现金额</p>
-      <p class="number">￥{{ walletInfo.money }}</p>
+      <p class="number">
+        <span>￥</span>
+        <input type="text" v-model="money" @input="moneyChange" />
+        <!-- {{ walletInfo.money }} -->
+      </p>
     </div>
     <div class="submitPu" @click="withdrawApply">
       预计24小时内到账，确认提现
@@ -28,12 +32,18 @@ import { Toast } from "vant";
 export default class WithdrawalSub extends Vue {
   private wallet: objAny = {};
   private walletInfo: objAny = {};
+  private money = 0;
 
+  public moneyChange() {
+    if (this.money > this.walletInfo.money) {
+      this.money = this.walletInfo.money;
+    }
+  }
   async withdrawApply() {
-    if (this.walletInfo.money > 0) {
+    if (this.money > 0) {
       const ret = await withdrawApply({
         card_id: this.walletInfo.id,
-        money: this.walletInfo.money
+        money: this.money
       });
       if (ret.code == 0) {
         Toast("提交成功");
@@ -41,13 +51,14 @@ export default class WithdrawalSub extends Vue {
         Toast(ret.msg);
       }
     } else {
-      Toast("提现金额不足");
+      Toast("请输入正确的提现金额");
     }
   }
   async getWalletInfo() {
     const ret = await getWalletInfo({});
     if (ret.code == 0) {
       this.walletInfo = ret.data;
+      this.money = this.walletInfo.money ? this.walletInfo.money : 0;
     } else {
       Toast(ret.msg);
     }
@@ -130,6 +141,19 @@ export default class WithdrawalSub extends Vue {
       margin-left: 2vw;
       font-size: 9vw;
       color: #000;
+      position: relative;
+      padding-top: 1vw;
+      span {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      input {
+        border: none;
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 10vw;
+      }
     }
   }
   .submitPu {

@@ -3,7 +3,7 @@
     <div class="my-header">
       <div class="my-head-img">
         <div class="img-box">
-          <img :src="userInfo.headimgurl" alt="" />
+          <img :src="userInfo.avatar" alt="" />
           <router-link to="/my-grade">
             <div class="my-grade">
               {{ userInfo.level == "1" ? "付费会员" : "普通用户" }}
@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="my-flex">
-        <div class="my-name">{{ userInfo.nickname }}</div>
+        <div class="my-name">{{ userInfo.name }}</div>
         <div class="my-id">ID:{{ userInfo.id }}</div>
       </div>
       <div class="my-center">
