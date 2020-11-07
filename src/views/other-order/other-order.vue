@@ -1,23 +1,6 @@
 <template>
   <div class="my-order">
     <div class="order-header">
-      <div class="order-number-info">
-        <div class="order-number-flex">
-          <div class="number-name">已省钱</div>
-          <div class="number">¥0.00</div>
-        </div>
-        <div class="order-number-flex tow">
-          <div class="number-name">订单数</div>
-          <div class="number">0</div>
-        </div>
-        <div class="order-number-flex three">
-          <div class="number-name">待私利</div>
-          <div class="number">¥0.00</div>
-        </div>
-      </div>
-      <div class="my-type">
-        您是游客，享受标准返利的 0% 加成
-      </div>
       <tab-btn @click="tabClick" :active="form.platform"></tab-btn>
       <ul class="header-ul">
         <li
@@ -25,40 +8,16 @@
           :class="{ active: form.status == 0 }"
           @click="itemClick(0)"
         >
-          <span>所有订单</span>
+          <span>已结算</span>
         </li>
         <li
           class="header-item"
           :class="{ active: form.status == 1 }"
           @click="itemClick(1)"
         >
-          <span>未收货</span>
-        </li>
-        <li
-          class="header-item"
-          :class="{ active: form.status == 2 }"
-          @click="itemClick(2)"
-        >
-          <span>结算中</span>
-        </li>
-        <li
-          class="header-item"
-          :class="{ active: form.status == 3 }"
-          @click="itemClick(3)"
-        >
-          <span>已结算</span>
+          <span>已失效</span>
         </li>
       </ul>
-      <!-- <div class="tips-text">
-        <p>
-          <img src="../../assets/image/tips-1.png" alt="" />
-          订单在购物平台上确认收货3天后，奖金才会结算喔
-        </p>
-        <p>
-          <img src="../../assets/image/tips-1.png" alt="" />
-          订单已收货但此处显示未收货，请点击刷新按钮更新
-        </p>
-      </div> -->
     </div>
     <div class="order-flex">
       <van-list
@@ -110,7 +69,7 @@ import { List, Toast } from "vant";
     "tab-btn": tabBtn
   }
 })
-export default class MyOrder extends Vue {
+export default class MyOtherOrder extends Vue {
   private loading = false;
   private finished = false;
   private platform = {
@@ -182,44 +141,11 @@ export default class MyOrder extends Vue {
   .order-header {
     width: 100vw;
     color: #666;
-    .order-number-info {
-      padding: 0.1rem;
-      display: flex;
-      .order-number-flex {
-        flex: 1;
-        border-radius: 0.1rem;
-        color: #fff;
-        background-color: rgba(70, 157, 231);
-        padding: 0.15rem;
-        font-size: 0.28rem;
-        text-align: center;
-        margin-right: 0.15rem;
-        .number {
-          margin-top: 0.1rem;
-        }
-      }
-      .tow {
-        background-color: rgba(138, 125, 241);
-      }
-      .three {
-        background-color: rgba(239, 123, 124);
-      }
-      .order-number-flex:last-child {
-        margin-right: 0;
-      }
-    }
-    .my-type {
-      background-color: rgba(57, 50, 75);
-      padding: 0.1rem 0.15rem;
-      font-size: 0.24rem;
-      line-height: 0.32rem;
-      color: #fff;
-      border-radius: 0.1rem 0.1rem 0 0;
-    }
+
     .header-ul {
       background: #fff;
       height: 8vw;
-      padding: 0 5%;
+      padding: 0 20%;
       display: flex;
       justify-content: space-between;
       .header-item {

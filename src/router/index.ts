@@ -85,6 +85,14 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: "/my-other-order",
+    name: "粉丝订单",
+    component: () => import("../views/other-order/other-order.vue"),
+    meta: {
+      isLogin: true
+    }
+  },
+  {
     path: "/my-team",
     name: "我的团队",
     component: () => import("../views/my-team/my-team.vue"),

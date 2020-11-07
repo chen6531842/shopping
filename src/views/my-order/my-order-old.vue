@@ -1,24 +1,6 @@
 <template>
   <div class="my-order">
     <div class="order-header">
-      <div class="order-number-info">
-        <div class="order-number-flex">
-          <div class="number-name">已省钱</div>
-          <div class="number">¥0.00</div>
-        </div>
-        <div class="order-number-flex tow">
-          <div class="number-name">订单数</div>
-          <div class="number">0</div>
-        </div>
-        <div class="order-number-flex three">
-          <div class="number-name">待私利</div>
-          <div class="number">¥0.00</div>
-        </div>
-      </div>
-      <div class="my-type">
-        您是游客，享受标准返利的 0% 加成
-      </div>
-      <tab-btn @click="tabClick" :active="form.platform"></tab-btn>
       <ul class="header-ul">
         <li
           class="header-item"
@@ -49,7 +31,7 @@
           <span>已结算</span>
         </li>
       </ul>
-      <!-- <div class="tips-text">
+      <div class="tips-text">
         <p>
           <img src="../../assets/image/tips-1.png" alt="" />
           订单在购物平台上确认收货3天后，奖金才会结算喔
@@ -58,7 +40,7 @@
           <img src="../../assets/image/tips-1.png" alt="" />
           订单已收货但此处显示未收货，请点击刷新按钮更新
         </p>
-      </div> -->
+      </div>
     </div>
     <div class="order-flex">
       <van-list
@@ -102,12 +84,10 @@
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
 import { getOrderList } from "@/api/index";
-import tabBtn from "@/components/tab-btn/tab-btn.vue";
 import { List, Toast } from "vant";
 @Component({
   components: {
-    [List.name]: List,
-    "tab-btn": tabBtn
+    [List.name]: List
   }
 })
 export default class MyOrder extends Vue {
@@ -118,7 +98,6 @@ export default class MyOrder extends Vue {
     tb: "淘宝",
     pdd: "拼多多"
   };
-  private active = "tb";
   private orderStatus: objAny = {
     "-1": "已支付",
     "0": "已支付",
@@ -134,16 +113,8 @@ export default class MyOrder extends Vue {
   public form: objAny = {
     page: 0,
     page_size: 10,
-    status: 0,
-    platform: "tb"
+    status: 0
   };
-  public tabClick(active: string) {
-    this.form.platform = active;
-    this.form.page = 1;
-    this.list = [];
-    this.finished = true;
-    this.getOrderList();
-  }
   public itemClick(index: number) {
     this.form.status = index;
     this.form.page = 1;
@@ -181,44 +152,11 @@ export default class MyOrder extends Vue {
   flex-direction: column;
   .order-header {
     width: 100vw;
+
     color: #666;
-    .order-number-info {
-      padding: 0.1rem;
-      display: flex;
-      .order-number-flex {
-        flex: 1;
-        border-radius: 0.1rem;
-        color: #fff;
-        background-color: rgba(70, 157, 231);
-        padding: 0.15rem;
-        font-size: 0.28rem;
-        text-align: center;
-        margin-right: 0.15rem;
-        .number {
-          margin-top: 0.1rem;
-        }
-      }
-      .tow {
-        background-color: rgba(138, 125, 241);
-      }
-      .three {
-        background-color: rgba(239, 123, 124);
-      }
-      .order-number-flex:last-child {
-        margin-right: 0;
-      }
-    }
-    .my-type {
-      background-color: rgba(57, 50, 75);
-      padding: 0.1rem 0.15rem;
-      font-size: 0.24rem;
-      line-height: 0.32rem;
-      color: #fff;
-      border-radius: 0.1rem 0.1rem 0 0;
-    }
     .header-ul {
       background: #fff;
-      height: 8vw;
+      height: 12vw;
       padding: 0 5%;
       display: flex;
       justify-content: space-between;
@@ -237,11 +175,12 @@ export default class MyOrder extends Vue {
           height: 6vw;
           line-height: 6vw;
           text-align: center;
-          font-size: 3.3vw;
+          font-size: 4vw;
         }
       }
       .header-item.active {
-        color: #f52724 !important;
+        color: #000 !important;
+        border-bottom: 2px solid #f52724;
       }
     }
     .tips-text {
@@ -322,14 +261,12 @@ export default class MyOrder extends Vue {
         .order-status-list {
           margin-top: 2vw;
           margin-bottom: 4vw;
-          height: 5vw;
           .tag {
             padding: 0 2vw;
             height: 4.8vw;
             font-size: 3vw;
             color: #fff;
             display: inline-block;
-            vertical-align: top;
             line-height: 4.8vw;
             text-align: center;
             border-radius: 2.4vw;
