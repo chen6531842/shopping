@@ -4,19 +4,21 @@
       <div class="order-number-info">
         <div class="order-number-flex">
           <div class="number-name">已省钱</div>
-          <div class="number">¥0.00</div>
+          <div class="number">¥{{ userInfo.total_saving }}</div>
         </div>
         <div class="order-number-flex tow">
           <div class="number-name">订单数</div>
-          <div class="number">0</div>
+          <div class="number">{{ walletInfo.order_count }}</div>
         </div>
         <div class="order-number-flex three">
-          <div class="number-name">待私利</div>
-          <div class="number">¥0.00</div>
+          <div class="number-name">待返利</div>
+          <div class="number">¥{{ walletInfo.unsettled }}</div>
         </div>
       </div>
       <div class="my-type">
-        您是游客，享受标准返利的 0% 加成
+        您是{{
+          userInfo.level == "1" ? "付费会员" : "普通用户"
+        }}，享受标准返利的 5% 加成
       </div>
       <tab-btn @click="tabClick" :active="form.platform"></tab-btn>
       <ul class="header-ul">
@@ -25,28 +27,28 @@
           :class="{ active: form.status == 0 }"
           @click="itemClick(0)"
         >
-          <span>所有订单</span>
+          <span>已支付</span>
         </li>
-        <li
+        <!-- <li
           class="header-item"
           :class="{ active: form.status == 1 }"
           @click="itemClick(1)"
         >
           <span>未收货</span>
-        </li>
+        </li> -->
         <li
           class="header-item"
-          :class="{ active: form.status == 2 }"
-          @click="itemClick(2)"
-        >
-          <span>结算中</span>
-        </li>
-        <li
-          class="header-item"
-          :class="{ active: form.status == 3 }"
-          @click="itemClick(3)"
+          :class="{ active: form.status == 5 }"
+          @click="itemClick(5)"
         >
           <span>已结算</span>
+        </li>
+        <li
+          class="header-item"
+          :class="{ active: form.status == 4 }"
+          @click="itemClick(4)"
+        >
+          <span>已失效</span>
         </li>
       </ul>
       <!-- <div class="tips-text">
@@ -101,7 +103,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
-import { getOrderList } from "@/api/index";
+import { getOrderList, getUserInfo, getWalletInfo } from "@/api/index";
 import tabBtn from "@/components/tab-btn/tab-btn.vue";
 import { List, Toast } from "vant";
 @Component({
@@ -137,6 +139,9 @@ export default class MyOrder extends Vue {
     status: 0,
     platform: "tb"
   };
+  public userInfo: objAny = {};
+  public walletInfo: objAny = {};
+
   public tabClick(active: string) {
     this.form.platform = active;
     this.form.page = 1;
@@ -165,12 +170,29 @@ export default class MyOrder extends Vue {
     }
     this.loading = false;
   }
+  async getUserInfo() {
+    const ret = await getUserInfo({});
+    if (ret.code == 0) {
+      this.userInfo = ret.data;
+    } else {
+      Toast(ret.msg);
+    }
+  }
+  async getWalletInfo() {
+    const ret = await getWalletInfo({});
+    if (ret.code == 0) {
+      this.walletInfo = ret.data;
+    } else {
+      Toast(ret.msg);
+    }
+  }
   onLoad() {
     this.form.page++;
     this.getOrderList();
   }
   mounted() {
-    // this.getOrderList();
+    this.getUserInfo();
+    this.getWalletInfo();
   }
 }
 </script>

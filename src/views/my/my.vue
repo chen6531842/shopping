@@ -16,13 +16,13 @@
         <div class="fen-si-box">
           <div class="fen-si-name">粉丝返利提成:</div>
           <div class="fen-si-flex">
-            <div class="tag">一级0%</div>
-            <div class="tag">二级0%</div>
+            <div class="tag">一级5%</div>
+            <div class="tag">二级5%</div>
           </div>
         </div>
         <div class="fen-si-box">
           <div class="fen-si-name">自购返利加成:</div>
-          <div class="fen-si-flex">0%</div>
+          <div class="fen-si-flex">80%</div>
         </div>
       </div>
     </div>
@@ -219,7 +219,7 @@ export default class MyPage extends Vue {
 <style lang="less">
 .my-page {
   .my-header {
-    padding: 0.3rem 0.4rem 0 0.4rem;
+    padding: 0.3rem 0.4rem 0rem 0.4rem;
     background: rgba(248, 106, 118);
     color: #fff;
     .my-info-box {
@@ -237,7 +237,7 @@ export default class MyPage extends Vue {
         flex: 1;
         padding-left: 0.2rem;
         font-size: 0.32rem;
-        padding-top: 0.15rem;
+        padding-top: 0.1rem;
         .id {
           margin-top: 0.15rem;
         }
@@ -263,7 +263,7 @@ export default class MyPage extends Vue {
           .tag {
             padding: 0.02rem 0.15rem;
             font-size: 0.24rem;
-            border: 0.01rem solid #fff;
+            border: 1px solid #fff;
             border-radius: 0.18rem;
             display: inline-block;
             vertical-align: top;

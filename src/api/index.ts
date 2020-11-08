@@ -83,3 +83,9 @@ export const getOrderList = (data: objAny, config = false) => {
 export const myAlipay = (data: objAny, config = false) => {
   return requestPost("/v1/wallet/myAlipay", data, config);
 };
+/**
+ *   粉丝订单接口:
+ */
+export const getTeamList = (data: objAny, config = false) => {
+  return requestPost("/v1/order/teamList", data, config);
+};

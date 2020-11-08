@@ -8,7 +8,7 @@ const init: objAny = {
   isInit: false,
   async init(next: Function, to: objAny) {
     this.isInit = true;
-    const userInfo = common.get("app_userInfo", 1); //本地保存的登录token
+    const userInfo = common.get("app_userInfo"); //本地保存的登录token
     const code = common.request("code") || ""; //
     const win: objAny = window;
     if (code != "") {
@@ -18,7 +18,7 @@ const init: objAny = {
         front_url: win.location.origin
       });
       if (ret.code == 0) {
-        common.save("app_userInfo", ret.data, 1);
+        common.save("app_userInfo", ret.data);
 
         store.commit("SET_USERINFO", ret.data);
         store.commit("SET_ISLOGIN", true);

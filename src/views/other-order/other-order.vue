@@ -5,15 +5,15 @@
       <ul class="header-ul">
         <li
           class="header-item"
-          :class="{ active: form.status == 0 }"
-          @click="itemClick(0)"
+          :class="{ active: form.status == 5 }"
+          @click="itemClick(5)"
         >
           <span>已结算</span>
         </li>
         <li
           class="header-item"
-          :class="{ active: form.status == 1 }"
-          @click="itemClick(1)"
+          :class="{ active: form.status == 4 }"
+          @click="itemClick(4)"
         >
           <span>已失效</span>
         </li>
@@ -60,7 +60,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
-import { getOrderList } from "@/api/index";
+import { getTeamList } from "@/api/index";
 import tabBtn from "@/components/tab-btn/tab-btn.vue";
 import { List, Toast } from "vant";
 @Component({
@@ -93,7 +93,7 @@ export default class MyOtherOrder extends Vue {
   public form: objAny = {
     page: 0,
     page_size: 10,
-    status: 0,
+    status: 5,
     platform: "tb"
   };
   public tabClick(active: string) {
@@ -112,7 +112,7 @@ export default class MyOtherOrder extends Vue {
   }
   async getOrderList() {
     this.loading = true;
-    const ret = await getOrderList(this.form);
+    const ret = await getTeamList(this.form);
     if (ret.code == 0) {
       this.list = this.list.concat(ret.data.rows);
       if (ret.data.total_rows >= ret.data.page || ret.data.total_page == 0) {

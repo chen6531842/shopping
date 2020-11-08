@@ -88,6 +88,7 @@ export default class MyTeam extends Vue {
             width: 100%;
             height: 100%;
             border-radius: 50%;
+            vertical-align: top;
           }
         }
         .flex {
