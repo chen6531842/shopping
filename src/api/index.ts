@@ -89,3 +89,9 @@ export const myAlipay = (data: objAny, config = false) => {
 export const getTeamList = (data: objAny, config = false) => {
   return requestPost("/v1/order/teamList", data, config);
 };
+/**
+ *   粉丝汇总数据:
+ */
+export const getTeamSummary = (data: objAny, config = false) => {
+  return requestPost("/v1/user/teamSummary", data, config);
+};

@@ -116,7 +116,26 @@ const routes: Array<RouteConfig> = [
   {
     path: "/withdrawal-sub",
     name: "获取用户信息",
-    component: () => import("../views/withdrawal-sub/withdrawal-sub.vue")
+    component: () => import("../views/withdrawal-sub/withdrawal-sub.vue"),
+    meta: {
+      isLogin: true
+    }
+  },
+  {
+    path: "/income-list",
+    name: "省钱明细",
+    component: () => import("../views/income-list/income-list.vue"),
+    meta: {
+      isLogin: true
+    }
+  },
+  {
+    path: "/my-team-list",
+    name: "我的粉丝",
+    component: () => import("../views/my-team-list/my-team-list.vue"),
+    meta: {
+      isLogin: true
+    }
   }
 ];
 

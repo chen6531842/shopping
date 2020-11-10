@@ -18,7 +18,7 @@
       <div class="my-type">
         您是{{
           userInfo.level == "1" ? "付费会员" : "普通用户"
-        }}，享受标准返利的 5% 加成
+        }}，享受标准返利的 0% 加成
       </div>
       <tab-btn @click="tabClick" :active="form.platform"></tab-btn>
       <ul class="header-ul">

@@ -14,15 +14,15 @@
       </div>
       <div class="fen-si-div">
         <div class="fen-si-box">
-          <div class="fen-si-name">粉丝返利提成:</div>
+          <div class="fen-si-name">好友省钱奖励:</div>
           <div class="fen-si-flex">
             <div class="tag">一级5%</div>
             <div class="tag">二级5%</div>
           </div>
         </div>
         <div class="fen-si-box">
-          <div class="fen-si-name">自购返利加成:</div>
-          <div class="fen-si-flex">80%</div>
+          <div class="fen-si-name">自购省钱加倍:</div>
+          <div class="fen-si-flex">0%</div>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="a-box">
-          <div class="a-flex" @click="goUrl('/income')">查看明细</div>
+          <div class="a-flex" @click="goUrl('/income-list')">查看明细</div>
           <div class="a-flex" @click="goUrl('/my-wallet')">申请提现</div>
         </div>
       </div>
@@ -60,7 +60,7 @@
           <div class="nav-title">邀请好友</div>
         </div>
         <div class="nav-flex">
-          <router-link to="/my-team">
+          <router-link to="/my-team-list">
             <div class="nav-icon">
               <img src="../../assets/image/icon-my-f.png" alt="" />
             </div>

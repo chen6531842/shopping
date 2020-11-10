@@ -43,7 +43,7 @@
         </router-link>
       </div>
       <div class="cell-item">
-        <router-link to="/income">
+        <router-link to="/income-list">
           <p>收入明细</p>
           <img src="../../assets/image/icon-right.png" alt="" />
         </router-link>
