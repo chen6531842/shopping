@@ -4,9 +4,9 @@
  * @Date: 2020-05-21 13:59:26
  * @LastEditors: 陈钊贤
  * @Description:
- * @LastEditTime: 2020-10-17 23:49:12
+ * @LastEditTime: 2020-11-11 20:08:45
  */
-
+import { Toast } from "vant";
 import { objAny } from "../common/common-interface";
 // import configData from "../config/config";
 const common: objAny = {
@@ -246,6 +246,42 @@ const common: objAny = {
       return "";
     } else {
       return returnValue;
+    }
+  },
+  copyText(text: string) {
+    const win: objAny = window;
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+      //区分iPhone设备
+      const data: objAny = {};
+      data.span = document.createElement("span");
+      data.span.innerHTML = text;
+      //span.style.display='none';
+      data.span.id = "copyTextSpan";
+      document.body.appendChild(data.span);
+      win.getSelection().removeAllRanges(); //这段代码必须放在前面否则无效
+      const range = document.createRange();
+      // 选中需要复制的节点
+      range.selectNode(data.span);
+      // 执行选中元素
+      win.getSelection().addRange(range);
+      // 执行 copy 操作
+      document.execCommand("copy");
+
+      // 移除选中的元素
+      win.getSelection().removeAllRanges();
+      data.span["parentNode"].removeChild(data.span);
+      Toast("复制成功");
+    } else {
+      const data: objAny = {};
+      data.oInput = document.createElement("input");
+      data.oInput.value = text;
+      document.body.appendChild(data.oInput);
+      data.oInput.select(); // 选择对象
+      document.execCommand("Copy"); // 执行浏览器复制命令
+      data.oInput.className = "oInput";
+      data.oInput.style.display = "none";
+      data.oInput.parentNode.removeChild(data.oInput);
+      Toast("复制成功");
     }
   }
 };

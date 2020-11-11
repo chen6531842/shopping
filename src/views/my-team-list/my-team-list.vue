@@ -55,7 +55,9 @@
             <div class="number">{{ teamSummary.second_child_rate || 0 }}%</div>
           </div>
           <div class="other-info-flex">
-            <button class="btn-yao">奖励翻倍</button>
+            <router-link to="/grade-description">
+              <button class="btn-yao">奖励翻倍</button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -249,6 +251,9 @@ export default class MyTeam extends Vue {
     text-align: center;
     .other-info-flex {
       flex: 1;
+      a {
+        color: #fff;
+      }
     }
   }
   .tips {

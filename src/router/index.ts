@@ -136,6 +136,14 @@ const routes: Array<RouteConfig> = [
     meta: {
       isLogin: true
     }
+  },
+  {
+    path: "/grade-description",
+    name: "等级说明",
+    component: () => import("../views/grade-description/grade-description.vue"),
+    meta: {
+      isLogin: true
+    }
   }
 ];
 

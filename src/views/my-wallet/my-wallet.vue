@@ -2,7 +2,7 @@
   <div class="my-wallet">
     <div class="wallet-info">
       <div class="wallet-title">已结算金额(元)</div>
-      <div class="wallet-name">{{ walletInfo.money }}</div>
+      <div class="wallet-name">{{ walletInfo.money | money }}</div>
       <div class="wallet-btn">
         <!-- <div class="wallet-btn-flex">
           <button class="my-btn wx" @click="withdrawal">微信提现</button>
@@ -16,7 +16,7 @@
       <div class="money-type-item center-box" @click="goOrder">
         <div class="type-item-center">
           <p class="name">待结算奖金(元)</p>
-          <p class="value">{{ walletInfo.unsettled }}</p>
+          <p class="value">{{ walletInfo.unsettled | money }}</p>
         </div>
         <img
           src="../../assets/image/icon-right.png"
@@ -27,7 +27,7 @@
       <div class="money-type-item  center-box">
         <div class="type-item-center">
           <p class="name">团队累计奖金(元)</p>
-          <p class="value">{{ walletInfo.team_income }}</p>
+          <p class="value">{{ walletInfo.team_income | money }}</p>
         </div>
       </div>
     </div>

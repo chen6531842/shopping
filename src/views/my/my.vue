@@ -1,31 +1,14 @@
 <template>
   <div class="my-page">
-    <div class="my-header">
-      <div class="my-info-box">
-        <div class="my-img">
-          <img :src="userInfo.avatar" alt="" />
-        </div>
-        <div class="my-info-flex">
-          <div class="name">{{ userInfo.name }}</div>
-          <div class="id">
-            您当前的身份: {{ userInfo.level == "1" ? "付费会员" : "普通用户" }}
-          </div>
-        </div>
-      </div>
-      <div class="fen-si-div">
-        <div class="fen-si-box">
-          <div class="fen-si-name">好友省钱奖励:</div>
-          <div class="fen-si-flex">
-            <div class="tag">一级5%</div>
-            <div class="tag">二级5%</div>
-          </div>
-        </div>
-        <div class="fen-si-box">
-          <div class="fen-si-name">自购省钱加倍:</div>
-          <div class="fen-si-flex">0%</div>
-        </div>
-      </div>
-    </div>
+    <my-header
+      type="my"
+      :walletInfo="walletInfo"
+      :userInfo="userInfo"
+    ></my-header>
+    <van-notice-bar
+      v-if="userInfo.first_query == 0"
+      :text="'您还没有完成首次查询，完成后奖励' + userInfo.reg_award + '元'"
+    />
     <div class="my-centent">
       <div class="my-money-centent">
         <div class="my-money-box">
@@ -77,95 +60,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="my-header">
-      <div class="my-head-img">
-        <div class="img-box">
-          <img :src="userInfo.avatar" alt="" />
-          <router-link to="/my-grade">
-            <div class="my-grade">
-              {{ userInfo.level == "1" ? "付费会员" : "普通用户" }}
-            </div>
-          </router-link>
-        </div>
-      </div>
-      <div class="my-flex">
-        <div class="my-name">{{ userInfo.name }}</div>
-        <div class="my-id">ID:{{ userInfo.id }}</div>
-      </div>
-      <div class="my-center">
-        已累计为您省{{ userInfo.total_saving || 0 }}元
-      </div>
-    </div>
-    <div class="my-cell-box">
-      <router-link to="/my-wallet">
-        <div class="cell-item">
-          <img src="../../assets/image/icon-1.png" class="cell-icon" alt="" />
-          <span class="cell-flex">我的钱包</span>
-          <img
-            class="cell-right"
-            src="../../assets/image/icon-right.png"
-            alt=""
-          />
-        </div>
-      </router-link>
-      <router-link to="/my-order">
-        <div class="cell-item">
-          <img src="../../assets/image/icon-2.png" class="cell-icon" alt="" />
-          <span class="cell-flex">我的订单</span>
-          <img
-            class="cell-right"
-            src="../../assets/image/icon-right.png"
-            alt=""
-          />
-        </div>
-      </router-link>
-    </div>
-    <div class="my-cell-box">
-      <div class="cell-item" @click="openQrcode">
-        <img src="../../assets/image/icon-3.png" class="cell-icon" alt="" />
-        <span class="cell-flex">邀请好友</span>
-        <img
-          class="cell-right"
-          src="../../assets/image/icon-right.png"
-          alt=""
-        />
-      </div>
-      <router-link to="/my-team">
-        <div class="cell-item">
-          <img src="../../assets/image/icon-4.png" class="cell-icon" alt="" />
-          <span class="cell-flex">我的团队</span>
-          <img
-            class="cell-right"
-            src="../../assets/image/icon-right.png"
-            alt=""
-          />
-        </div>
-      </router-link>
-    </div>
-    <div class="my-cell-box">
-      <router-link to="/help-center">
-        <div class="cell-item">
-          <img src="../../assets/image/icon-5.png" class="cell-icon" alt="" />
-          <span class="cell-flex">帮助中心</span>
-          <img
-            class="cell-right"
-            src="../../assets/image/icon-right.png"
-            alt=""
-          />
-        </div>
-      </router-link>
-      <router-link to="/my-about">
-        <div class="cell-item">
-          <img src="../../assets/image/icon-6.png" class="cell-icon" alt="" />
-          <span class="cell-flex">关于我们</span>
-          <img
-            class="cell-right"
-            src="../../assets/image/icon-right.png"
-            alt=""
-          />
-        </div>
-      </router-link>
-    </div> -->
 
     <canvas-img ref="canvasImg"></canvas-img>
   </div>
@@ -176,10 +70,13 @@ import { objAny } from "../../common/common-interface";
 import { State } from "vuex-class";
 import { getUserInfo, getWalletInfo } from "@/api/index";
 import canvasImg from "./canvas-img.vue";
-import { Toast } from "vant";
+import { Toast, NoticeBar } from "vant";
+import myHeader from "./my-header.vue";
 @Component({
   components: {
-    "canvas-img": canvasImg
+    "canvas-img": canvasImg,
+    "my-header": myHeader,
+    [NoticeBar.name]: NoticeBar
   }
 })
 export default class MyPage extends Vue {
@@ -218,67 +115,6 @@ export default class MyPage extends Vue {
 </script>
 <style lang="less">
 .my-page {
-  .my-header {
-    padding: 0.3rem 0.4rem 0rem 0.4rem;
-    background: rgba(248, 106, 118);
-    color: #fff;
-    .my-info-box {
-      display: flex;
-      .my-img {
-        width: 1.2rem;
-        height: 1.2rem;
-        img {
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-        }
-      }
-      .my-info-flex {
-        flex: 1;
-        padding-left: 0.2rem;
-        font-size: 0.32rem;
-        padding-top: 0.1rem;
-        .id {
-          margin-top: 0.15rem;
-        }
-      }
-    }
-    .fen-si-div {
-      background-color: rgba(51, 51, 73);
-      border-radius: 0.2rem 0.2rem 0 0;
-      padding: 0.2rem;
-      margin-top: 0.5rem;
-      .fen-si-box {
-        display: flex;
-        font-size: 0.32rem;
-        margin-top: 0.2rem;
-        .fen-si-name {
-          width: 2.3rem;
-          color: rgba(238, 234, 137);
-        }
-        .fen-si-flex {
-          flex: 1;
-          padding-left: 0.2rem;
-          color: #fff;
-          .tag {
-            padding: 0.02rem 0.15rem;
-            font-size: 0.24rem;
-            border: 1px solid #fff;
-            border-radius: 0.18rem;
-            display: inline-block;
-            vertical-align: top;
-            margin-left: 0.2rem;
-          }
-          .tag:first-child {
-            margin-left: 0;
-          }
-        }
-      }
-      .fen-si-box:first-child {
-        margin-top: 0;
-      }
-    }
-  }
   .my-centent {
     padding: 0.15rem;
     .my-money-centent {

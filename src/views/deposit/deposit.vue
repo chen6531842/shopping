@@ -12,11 +12,11 @@
             <img src="../../assets/image/pay.png" alt="" />
           </div>
           <div class="flex">
-            <div class="money">{{ item.money }}</div>
+            <div class="money">{{ item.money }}元</div>
             <div class="time">{{ item.c_time }}</div>
           </div>
           <div class="status" :class="{ yes: item.status == 1 }">
-            {{ item.status == 0 ? "未处理" : "已处理" }}
+            {{ item.status == 0 ? "处理中" : "已处理" }}
           </div>
         </li>
       </ul>

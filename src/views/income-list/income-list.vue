@@ -4,11 +4,11 @@
       <div class="income-data">
         <div class="income-data-flex">
           <div class="name">自购省</div>
-          <div class="value">¥{{ userInfo.total_saving || 0 }}</div>
+          <div class="value">¥{{ userInfo.total_saving | money }}</div>
         </div>
         <div class="income-data-flex">
           <div class="name">好友奖励</div>
-          <div class="value">¥{{ walletInfo.team_income || 0 }}</div>
+          <div class="value">¥{{ walletInfo.team_income | money }}</div>
         </div>
       </div>
       <div class="time-select">

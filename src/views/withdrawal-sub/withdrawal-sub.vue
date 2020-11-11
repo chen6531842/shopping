@@ -40,13 +40,14 @@ export default class WithdrawalSub extends Vue {
     }
   }
   async withdrawApply() {
-    if (this.money > 0) {
+    if (this.money >= 0) {
       const ret = await withdrawApply({
-        card_id: this.walletInfo.id,
+        card_id: this.wallet.id,
         money: this.money
       });
       if (ret.code == 0) {
         Toast("提交成功");
+        this.$common.goBack();
       } else {
         Toast(ret.msg);
       }

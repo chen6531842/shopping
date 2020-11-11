@@ -4,21 +4,20 @@
       <div class="order-number-info">
         <div class="order-number-flex">
           <div class="number-name">已省钱</div>
-          <div class="number">¥{{ userInfo.total_saving }}</div>
+          <div class="number">¥{{ userInfo.total_saving | money }}</div>
         </div>
         <div class="order-number-flex tow">
           <div class="number-name">订单数</div>
-          <div class="number">{{ walletInfo.order_count }}</div>
+          <div class="number">{{ walletInfo.order_count || 0 }}</div>
         </div>
         <div class="order-number-flex three">
           <div class="number-name">待返利</div>
-          <div class="number">¥{{ walletInfo.unsettled }}</div>
+          <div class="number">¥{{ walletInfo.unsettled | money }}</div>
         </div>
       </div>
       <div class="my-type">
-        您是{{
-          userInfo.level == "1" ? "付费会员" : "普通用户"
-        }}，享受标准返利的 0% 加成
+        您是LV{{ userInfo.level }}，享受标准返利的 {{ userInfo.self_rate }}%
+        加成
       </div>
       <tab-btn @click="tabClick" :active="form.platform"></tab-btn>
       <ul class="header-ul">
@@ -70,7 +69,46 @@
         @load="onLoad"
       >
         <ul class="order-ul">
-          <li class="order-item" v-for="(item, index) in list" :key="index">
+          <li class="order-li" v-for="(item, index) in list" :key="index">
+            <div class="order-info-box">
+              <div class="order-li-inline">订单状态: 已付款</div>
+              <div class="order-li-flex">
+                订单编号: {{ item.order_sn }}
+                <div class="fu-zhi" @click="copy(item.order_sn)">复制</div>
+              </div>
+            </div>
+            <div class="order-info-box">
+              <div class="order-li-inline">{{ item.c_time }}</div>
+              <div class="order-li-inline">
+                付款金额: ¥{{ item.order_amount }}
+              </div>
+              <div class="order-li-inline">
+                类型:{{ platform[item.platform] }}订单
+              </div>
+            </div>
+            <div class="shpping-info">
+              <div class="shpping-img">
+                <img :src="item.goods_thumbnail_url" alt="" />
+              </div>
+              <div class="shpping-flex">
+                <div class="info-box">
+                  <div class="info-box-div">
+                    <div class="name">{{ item.goods_name }}</div>
+                    <div class="money-box">
+                      <div class="money-box-flex">
+                        标准返利: ¥{{ item.user_award }}
+                      </div>
+                      <div class="money-box-flex">
+                        实际返利:
+                        <span class="red">¥{{ item.user_award }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- <li class="order-item" v-for="(item, index) in list" :key="index">
             <div class="order-head">
               <div class="order-type">
                 <span>{{ platform[item.platform] }}</span>
@@ -78,19 +116,21 @@
               </div>
             </div>
             <div class="order-info">
-              <div class="title">
-                {{ item.goods_name }}
+              <div class="order-info-flex">
+                <div class="title">
+                  {{ item.goods_name }}
+                </div>
+                <div class="order-status-list">
+                  <div class="tag">{{ orderStatus[item.order_status] }}</div>
+                </div>
+                <div class="order-time">{{ item.order_create_time }}</div>
               </div>
-              <div class="order-status-list">
-                <div class="tag">{{ orderStatus[item.order_status] }}</div>
-              </div>
-              <div class="order-time">{{ item.order_create_time }}</div>
             </div>
             <div class="order-money">
               <div class="od-money">实付金额: ¥{{ item.order_amount }}</div>
               <div class="my-money">奖金:¥{{ item.user_award }}</div>
             </div>
-          </li>
+          </li> -->
         </ul>
       </van-list>
       <!-- <div class="no-data">
@@ -141,7 +181,9 @@ export default class MyOrder extends Vue {
   };
   public userInfo: objAny = {};
   public walletInfo: objAny = {};
-
+  public copy(text: string) {
+    this.$common.copyText(text);
+  }
   public tabClick(active: string) {
     this.form.platform = active;
     this.form.page = 1;
@@ -305,79 +347,150 @@ export default class MyOrder extends Vue {
     }
   }
   .order-ul {
-    .order-item {
-      margin-top: 2vw;
+    padding: 0 0.1rem;
+    .order-li {
+      margin-top: 0.2rem;
+      padding: 0.1rem 0.2rem;
       background-color: #fff;
-      padding: 2vw 4vw 0 4vw;
-      .order-head {
+      .order-info-box {
+        color: #999;
+        font-size: 0.24rem;
         display: flex;
-        font-size: 3.2vw;
+        .order-li-inline {
+          flex: 1;
+          line-height: 0.4rem;
+        }
+        .time {
+          font-size: 0.28rem;
+        }
+        .order-li-flex {
+          flex: 2;
+        }
+        .fu-zhi {
+          padding: 0 0.1rem;
+          border: 1px solid #999;
+          border-radius: 0.1rem;
+          float: right;
+          font-size: 0.18rem;
+        }
+      }
+      .shpping-info {
+        display: flex;
+        margin-top: 0.2rem;
         color: #333;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 2vw;
-        .order-type {
-          flex: 1;
-          span {
-            background: rgba(216, 0, 0);
-            color: #fff;
-            font-size: 1vw;
-            display: inline-block;
-            padding: 0.5vw 1vw;
-            border-radius: 0.5vw;
-            line-height: 2.5vw;
-            font-size: 2.5vw;
-            vertical-align: text-top;
+        font-size: 0.24rem;
+        .shpping-img {
+          width: 1.5rem;
+          height: 1.5rem;
+          img {
+            width: 100%;
+            height: 100%;
           }
         }
-      }
-      .order-info {
-        padding: 2vw 0;
-        border-bottom: 1px solid #eee;
-        .title {
-          font-size: 3.2vw;
-          line-height: 4vw;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          color: #333;
-        }
-        .order-status-list {
-          margin-top: 2vw;
-          margin-bottom: 4vw;
-          height: 5vw;
-          .tag {
-            padding: 0 2vw;
-            height: 4.8vw;
-            font-size: 3vw;
-            color: #fff;
-            display: inline-block;
-            vertical-align: top;
-            line-height: 4.8vw;
-            text-align: center;
-            border-radius: 2.4vw;
-            background: #ff8400;
-            margin-right: 2vw;
-          }
-        }
-        .order-time {
-          font-size: 3.2vw;
-          line-height: 4vw;
-          color: #333;
-        }
-      }
-      .order-money {
-        display: flex;
-        .od-money,
-        .my-money {
+        .shpping-flex {
+          padding-left: 0.2rem;
           flex: 1;
-          font-size: 3.2vw;
-          line-height: 8vw;
-        }
-        .my-money {
-          text-align: right;
+          .info-box {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-items: center;
+          }
+          .info-box-div {
+            width: 100%;
+          }
+          .money-box {
+            width: 100%;
+            margin-top: 0.1rem;
+            display: flex;
+            .money-box-flex {
+              flex: 1;
+            }
+          }
         }
       }
     }
+    // .order-item {
+    //   margin-top: 2vw;
+    //   background-color: #fff;
+    //   padding: 2vw 4vw 0 4vw;
+    //   .order-head {
+    //     display: flex;
+    //     font-size: 3.2vw;
+    //     color: #333;
+    //     border-bottom: 1px solid #eee;
+    //     padding-bottom: 2vw;
+    //     .order-type {
+    //       flex: 1;
+    //       span {
+    //         background: rgba(216, 0, 0);
+    //         color: #fff;
+    //         font-size: 1vw;
+    //         display: inline-block;
+    //         padding: 0.5vw 1vw;
+    //         border-radius: 0.5vw;
+    //         line-height: 2.5vw;
+    //         font-size: 2.5vw;
+    //         vertical-align: text-top;
+    //       }
+    //     }
+    //   }
+    //   .order-info {
+    //     padding: 2vw 0;
+    //     border-bottom: 1px solid #eee;
+    //     display: flex;
+    //     .order-img {
+    //       width: 2vw;
+    //       height: 2vw;
+    //     }
+    //     .order-info-flex {
+    //       flex: 1;
+    //     }
+    //     .title {
+    //       font-size: 3.2vw;
+    //       line-height: 4vw;
+    //       overflow: hidden;
+    //       text-overflow: ellipsis;
+    //       white-space: nowrap;
+    //       color: #333;
+    //     }
+    //     .order-status-list {
+    //       margin-top: 2vw;
+    //       margin-bottom: 4vw;
+    //       height: 5vw;
+    //       .tag {
+    //         padding: 0 2vw;
+    //         height: 4.8vw;
+    //         font-size: 3vw;
+    //         color: #fff;
+    //         display: inline-block;
+    //         vertical-align: top;
+    //         line-height: 4.8vw;
+    //         text-align: center;
+    //         border-radius: 2.4vw;
+    //         background: #ff8400;
+    //         margin-right: 2vw;
+    //       }
+    //     }
+    //     .order-time {
+    //       font-size: 3.2vw;
+    //       line-height: 4vw;
+    //       color: #333;
+    //     }
+    //   }
+    //   .order-money {
+    //     display: flex;
+    //     .od-money,
+    //     .my-money {
+    //       flex: 1;
+    //       font-size: 3.2vw;
+    //       line-height: 8vw;
+    //     }
+    //     .my-money {
+    //       text-align: right;
+    //     }
+    //   }
+    // }
   }
 }
 </style>

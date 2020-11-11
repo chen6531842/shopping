@@ -153,13 +153,13 @@ function request(
     axios(axiosConfig)
       .then(result => {
         clearLoading(toast);
-        // if (result.data.code == -1) {
-        //   const win: objAny = window;
-        //   const href = win.location.origin + "/#/my";
-        //   const url = href.replace(/#/g, "__");
-        //   win.location.href =
-        //     myConfig.getCodeUrl + "?url=" + url + "&appId=" + myConfig.appId;
-        // }
+        if (result.data.code == -1) {
+          const win: objAny = window;
+          const href = win.location.origin + "/#/my";
+          const url = href.replace(/#/g, "__");
+          win.location.href =
+            myConfig.getCodeUrl + "?url=" + url + "&appId=" + myConfig.appId;
+        }
         resolve(result.data);
       })
       .catch(error => {
