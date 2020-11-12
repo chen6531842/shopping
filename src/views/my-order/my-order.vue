@@ -16,10 +16,15 @@
         </div>
       </div>
       <div class="my-type">
-        您是LV{{ userInfo.level }}，享受标准返利的 {{ userInfo.self_rate }}%
-        加成
+        您是LV{{ userInfo.level }}，享受标准返利的
+        {{ userInfo.self_rate * 100 }}% 加成
       </div>
       <tab-btn @click="tabClick" :active="form.platform"></tab-btn>
+      <van-search
+        v-model="form.order_sn"
+        @search="onSearch"
+        placeholder="请输入淘宝/拼多多/京东订单号"
+      />
       <ul class="header-ul">
         <li
           class="header-item"
@@ -71,7 +76,9 @@
         <ul class="order-ul">
           <li class="order-li" v-for="(item, index) in list" :key="index">
             <div class="order-info-box">
-              <div class="order-li-inline">订单状态: 已付款</div>
+              <div class="order-li-inline">
+                订单状态: {{ statusObj[form.status] }}
+              </div>
               <div class="order-li-flex">
                 订单编号: {{ item.order_sn }}
                 <div class="fu-zhi" @click="copy(item.order_sn)">复制</div>
@@ -96,7 +103,7 @@
                     <div class="name">{{ item.goods_name }}</div>
                     <div class="money-box">
                       <div class="money-box-flex">
-                        标准返利: ¥{{ item.user_award }}
+                        标准返利: ¥{{ item.promotion_amount }}
                       </div>
                       <div class="money-box-flex">
                         实际返利:
@@ -145,10 +152,11 @@ import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
 import { getOrderList, getUserInfo, getWalletInfo } from "@/api/index";
 import tabBtn from "@/components/tab-btn/tab-btn.vue";
-import { List, Toast } from "vant";
+import { List, Toast, Search } from "vant";
 @Component({
   components: {
     [List.name]: List,
+    [Search.name]: Search,
     "tab-btn": tabBtn
   }
 })
@@ -161,6 +169,11 @@ export default class MyOrder extends Vue {
     pdd: "拼多多"
   };
   private active = "tb";
+  private statusObj: objAny = {
+    "0": "已支付",
+    "5": "已结算",
+    "4": "已失效"
+  };
   private orderStatus: objAny = {
     "-1": "已支付",
     "0": "已支付",
@@ -177,12 +190,19 @@ export default class MyOrder extends Vue {
     page: 0,
     page_size: 10,
     status: 0,
-    platform: "tb"
+    platform: "tb",
+    order_sn: ""
   };
   public userInfo: objAny = {};
   public walletInfo: objAny = {};
   public copy(text: string) {
     this.$common.copyText(text);
+  }
+  public onSearch() {
+    this.form.page = 1;
+    this.list = [];
+    this.finished = true;
+    this.getOrderList();
   }
   public tabClick(active: string) {
     this.form.platform = active;

@@ -14,11 +14,11 @@
         <div class="my-money-box">
           <div class="my-money-flex">
             <div class="money-name">账户余额</div>
-            <div class="money">¥{{ walletInfo.money || 0 }}</div>
+            <div class="money">¥{{ walletInfo.money | money }}</div>
           </div>
           <div class="my-money-flex">
             <div class="money-name">待入账余额</div>
-            <div class="money">¥{{ walletInfo.unsettled || 0 }}</div>
+            <div class="money">¥{{ walletInfo.unsettled | money }}</div>
           </div>
         </div>
         <div class="a-box">

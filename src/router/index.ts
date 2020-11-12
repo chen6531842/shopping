@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: "Home",
+    name: "教程",
     component: () => import("../views/help-center/help-center.vue")
   },
   {

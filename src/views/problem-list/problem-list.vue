@@ -27,6 +27,8 @@ export default class ProblemList extends Vue {
         window.location.href = "/swiper/helpSwiperThree.html";
       } else if (index == 2) {
         window.location.href = "/swiper/helpSwiperThree.html";
+      } else if (item.an == 3) {
+        window.location.href = "/swiper/pdd-type.html";
       } else {
         this.$router.push("/problem-list/details");
         this.$common.save("problem-list-details", item);
@@ -83,6 +85,10 @@ export default class ProblemList extends Vue {
           qu: "什么是会员奖励？",
           an:
             '免费升级为公众号的会员后，每次省钱淘宝购物，均可获得<span style="color:red">额外奖励</span>，即会员奖金。具体会员奖金比例介绍，请返回帮助中心查看会员相关问题。<br/>每笔订单获得的奖金=【<span style="color:red">奖金</span>】+【<span style="color:red">会员奖励</span>】'
+        },
+        {
+          qu: "获得拼多多奖励规避方式?",
+          an: "3"
         }
       ];
     } else if (index == "1") {

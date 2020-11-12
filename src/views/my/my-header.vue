@@ -25,7 +25,9 @@
       </div>
       <div class="fen-si-box">
         <div class="fen-si-name">自购省钱加倍:</div>
-        <div class="fen-si-flex">{{ userInfo.self_rate }}%</div>
+        <div class="fen-si-flex">
+          {{ userInfo.self_rate >= 0 ? userInfo.self_rate * 100 : 0 }}%
+        </div>
       </div>
     </div>
   </div>
