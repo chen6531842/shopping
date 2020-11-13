@@ -7,7 +7,7 @@
     ></my-header>
     <van-notice-bar
       v-if="userInfo.first_query == 0"
-      :text="'您还没有完成首次查询，完成后奖励' + userInfo.reg_award + '元'"
+      :text="'完成首次查询再奖励' + userInfo.reg_award + '元'"
     />
     <div class="my-centent">
       <div class="my-money-centent">
