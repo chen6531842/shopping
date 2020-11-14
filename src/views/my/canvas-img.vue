@@ -2,6 +2,7 @@
   <div class="invite-friends" v-if="inviteFriends">
     <div class="invite-friends-centent">
       <!-- -->
+      <div class="loading-tips" v-show="imgUrl == ''">图片加载中...</div>
       <canvas
         width="420"
         height="750"
@@ -13,13 +14,14 @@
       <p><img src="../../assets/image/down.png" alt="" /> 长按图片保存到手机</p>
     </div>
     <div class="close" @click="inviteFriends = false"></div>
+    <canvas id="myImeCanvas" style="margin: 0 auto; display: block;"></canvas>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
 import { Toast } from "vant";
-import { getUserQrcode } from "@/api/index";
+// import { getUserQrcode } from "@/api/index";
 import axios from "axios";
 import store from "@/store/index";
 @Component
@@ -28,6 +30,7 @@ export default class CanvasImg extends Vue {
   private qrcode_url = "";
   private userInfo: objAny = {};
   private imgUrl = "";
+  private myImg = "";
   async open(userInfo: objAny) {
     this.userInfo = userInfo;
     this.inviteFriends = true;
@@ -40,6 +43,7 @@ export default class CanvasImg extends Vue {
     if (userInfo) {
       headers["x-token"] = appUserInfo.token;
     }
+
     axios({
       method: "post",
       url: "/v1/user/qrcode",
@@ -47,7 +51,7 @@ export default class CanvasImg extends Vue {
       responseType: "arraybuffer",
       data: {}
     }).then(res => {
-      console.log(res);
+      // console.log(res);
       // 处理返回的文件流
       const imageUrl =
         "data:image/png;base64," +
@@ -57,35 +61,36 @@ export default class CanvasImg extends Vue {
             ""
           )
         );
-      console.log(imageUrl);
+      // console.log(imageUrl);
       this.qrcode_url = imageUrl;
       this.$nextTick(() => {
-        this.canvasImg();
+        this.getMyImgUrl();
       });
       // 此处给图片url赋值 图片src = imageUrl
     });
+  }
+  async getMyImgUrl() {
+    const canvas: any = document.getElementById("myImeCanvas");
 
-    // const ret = await getUserQrcode({});
-    // // console.log(ret);
-    // const imageUrl =
-    //   "data:image/png;base64," +
-    //   btoa(
-    //     new Uint8Array(ret).reduce(
-    //       (data, byte) => data + String.fromCharCode(byte),
-    //       ""
-    //     )
-    //   );
-    // console.log(imageUrl);
-    // this.imgUrl = imageUrl;
-    // (window.URL || window.webkitURL).createObjectURL(blob)
-    // if (ret.code == 0) {
-    // this.qrcode_url = ret.data.qrcode_url;
-    // this.$nextTick(() => {
-    //   this.canvasImg();
-    // });
-    // } else {
-    //   Toast(ret.msg);
-    // }
+    const img = await this.loadImg(this.userInfo.headimgurl);
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    const ctx = canvas.getContext("2d");
+
+    //获取图片宽高的最小值
+    const min = Math.min(img.width, img.height);
+    const r = min / 2;
+
+    ctx.fillStyle = ctx.createPattern(img, "no-repeat");
+    ctx.clearRect(0, 0, img.width, img.height);
+    ctx.arc(img.width / 2, img.height / 2, r, 0, Math.PI * 2);
+    ctx.fill();
+    const url = canvas.toDataURL("image/png");
+    // console.log(url);
+    this.myImg = url;
+    this.canvasImg();
+    canvas.style.display = "none";
   }
   async canvasImg() {
     const win: objAny = window;
@@ -98,32 +103,29 @@ export default class CanvasImg extends Vue {
     canvas2.width = w;
     canvas2.height = h;
 
-    const bg = await this.loadImg("/common/test.png");
+    const bg = await this.loadImg("/common/share.jpg");
     if (bg) {
       myctx.drawImage(bg, 0, 0, canvas2.width, canvas2.height);
     }
-    const myImg = await this.loadImg(this.userInfo.headimgurl);
-    if (myImg) {
-      myctx.drawImage(
-        myImg,
-        canvas2.width / 2 - 30 * t,
-        30 * t,
-        50 * t,
-        50 * t
-      );
+    const myImg = await this.loadImg(this.myImg);
+    if (myImg != "") {
+      myctx.drawImage(myImg, 45 * t, canvas2.height - 175 * t, 50 * t, 50 * t);
     }
     const qrcode_url = await this.loadImg(this.qrcode_url);
     if (qrcode_url) {
       myctx.drawImage(
         qrcode_url,
-        canvas2.width / 2 - 65 * t,
-        canvas2.height * 0.7,
-        // 100 * t,
-        // 28 * t
-        130 * t,
-        130 * t
+        canvas2.width - (105 + 50) * t,
+        canvas2.height - (105 + 32) * t,
+        105 * t,
+        105 * t
       );
     }
+    myctx.font = 14 * 2 + "px  bold 黑体";
+    myctx.textAlign = "center";
+    myctx.fillStyle = "#333";
+    myctx.fillText(this.userInfo.name, 60 * t, canvas2.height - 105 * t);
+
     this.imgUrl = canvas2.toDataURL("image/png");
   }
   loadImg(src: string) {
@@ -186,11 +188,23 @@ export default class CanvasImg extends Vue {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+    .loading-tips {
+      font-size: 0.24rem;
+      color: #999;
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 0.3rem;
+      z-index: 10;
+    }
     .img-url {
       width: 42vw;
       height: 75vw;
     }
     .load-img {
+      opacity: 0;
       width: 420px;
       height: 750px;
       background-size: 100% 100%;
