@@ -6,9 +6,7 @@
           <div class="my-img">
             <img :src="userInfo.avatar" alt="" />
           </div>
-          <div class="my-info-flex">
-            {{ userInfo.level == "1" ? "付费会员" : "普通用户" }}
-          </div>
+          <div class="my-info-flex">{{ userInfo.level_text }}</div>
           <div class="btn-yao-div">
             <button class="btn-yao" @click="openQrcode">邀请好友</button>
           </div>
@@ -44,7 +42,9 @@
           </div>
           <div class="other-info-flex">
             <div>享奖励</div>
-            <div class="number">{{ teamSummary.first_child_rate || 0 }}%</div>
+            <div class="number">
+              {{ teamSummary.first_child_rate * 100 || 0 }}%
+            </div>
           </div>
           <div class="other-info-flex">
             <div>二级好友</div>
@@ -52,7 +52,9 @@
           </div>
           <div class="other-info-flex">
             <div>享奖励</div>
-            <div class="number">{{ teamSummary.second_child_rate || 0 }}%</div>
+            <div class="number">
+              {{ teamSummary.second_child_rate * 100 || 0 }}%
+            </div>
           </div>
           <div class="other-info-flex">
             <router-link to="/grade-description">

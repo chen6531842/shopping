@@ -6,16 +6,10 @@
       </div>
       <div class="my-info-flex">
         <div class="name">{{ userInfo.name }}</div>
-        <div class="id">您当前的身份: LV{{ userInfo.level }}</div>
+        <div class="id">您当前的身份: {{ userInfo.level_text }}</div>
       </div>
     </div>
     <div class="fen-si-div">
-      <router-link
-        class="go-tips-page"
-        to="/grade-description"
-        v-if="type == 'my'"
-        >省钱加倍></router-link
-      >
       <div class="fen-si-box">
         <div class="fen-si-name">好友省钱奖励:</div>
         <div class="fen-si-flex">
@@ -41,6 +35,12 @@
           {{ userInfo.self_rate >= 0 ? userInfo.self_rate * 100 : 0 }}%
         </div>
       </div>
+      <router-link
+        class="go-tips-page"
+        to="/grade-description"
+        v-if="type == 'my'"
+        >省钱加倍></router-link
+      >
     </div>
   </div>
 </template>

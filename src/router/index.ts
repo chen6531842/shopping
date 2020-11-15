@@ -144,6 +144,14 @@ const routes: Array<RouteConfig> = [
     meta: {
       isLogin: true
     }
+  },
+  {
+    path: "/share",
+    name: "分享好友",
+    component: () => import("../views/share/share.vue"),
+    meta: {
+      isLogin: true
+    }
   }
 ];
 

@@ -16,8 +16,8 @@
         </div>
       </div>
       <div class="my-type">
-        您是LV{{ userInfo.level }}，享受标准返利的
-        {{ userInfo.self_rate * 100 }}% 加成
+        您是{{ userInfo.level_text }}，享受标准返利的
+        {{ userInfo.self_rate * 100 || 0 }}% 加成
       </div>
       <tab-btn @click="tabClick" :active="form.platform"></tab-btn>
       <van-search

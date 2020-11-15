@@ -68,9 +68,13 @@
           <div class="grade-text">可享受权益</div>
           <ul class="grade-ul">
             <li class="grade-item">会员基础权益</li>
-            <li class="grade-item">享一级粉丝奖励 20%的提成</li>
-            <li class="grade-item">自购奖励加成 20%</li>
-            <li class="grade-item">享二级粉丝奖励 10%的提成</li>
+            <li class="grade-item">
+              享一级粉丝奖励 {{ data2[1] * 100 || 0 }}%的提成
+            </li>
+            <li class="grade-item">自购奖励加成 {{ data2[0] * 100 || 0 }}%</li>
+            <li class="grade-item">
+              享二级粉丝奖励 {{ data2[2] * 100 || 0 }}%的提成
+            </li>
           </ul>
         </div>
       </div>
@@ -87,9 +91,13 @@
           <div class="grade-text">可享受权益</div>
           <ul class="grade-ul">
             <li class="grade-item">会员基础权益</li>
-            <li class="grade-item">享一级粉丝奖励 40%的提成</li>
-            <li class="grade-item">自购奖励加成 20%</li>
-            <li class="grade-item">享二级粉丝奖励 20%的提成</li>
+            <li class="grade-item">
+              享一级粉丝奖励 {{ data3[1] * 100 || 0 }}%的提成
+            </li>
+            <li class="grade-item">自购奖励加成 {{ data3[0] * 100 || 0 }}%</li>
+            <li class="grade-item">
+              享二级粉丝奖励 {{ data3[2] * 100 || 0 }}%的提成
+            </li>
           </ul>
         </div>
       </div>
@@ -106,9 +114,13 @@
           <div class="grade-text">可享受权益</div>
           <ul class="grade-ul">
             <li class="grade-item">会员基础权益</li>
-            <li class="grade-item">自购奖励加成 20%</li>
-            <li class="grade-item">享一级粉丝奖励 50%的提成</li>
-            <li class="grade-item">享二级粉丝奖励 50%的提成</li>
+            <li class="grade-item">自购奖励加成 {{ data4[0] * 100 || 0 }}%</li>
+            <li class="grade-item">
+              享一级粉丝奖励 {{ data4[1] * 100 || 0 }}%的提成
+            </li>
+            <li class="grade-item">
+              享二级粉丝奖励 {{ data4[2] * 100 || 0 }}%的提成
+            </li>
             <li class="grade-item">让你的微信账号具备查询机器人的功能</li>
             <li class="grade-item">
               让你的微信好友全部自动转化为一级粉丝，无需邀请
@@ -128,7 +140,7 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
 import myHeader from "../my/my-header.vue";
-import { getUserInfo, getWalletInfo } from "@/api/index";
+import { getUserInfo, getWalletInfo, getUserConfig } from "@/api/index";
 import { Toast } from "vant";
 import canvasImg from "../my/canvas-img.vue";
 @Component({
@@ -140,6 +152,12 @@ import canvasImg from "../my/canvas-img.vue";
 export default class GradeDescription extends Vue {
   private userInfo: objAny = {};
   private walletInfo: objAny = {};
+  private gradeConfig: objAny = {};
+  private data1: number[] = [];
+  private data2: number[] = [];
+  private data3: number[] = [];
+  private data4: number[] = [];
+
   async getUserInfo() {
     const ret = await getUserInfo({});
     if (ret.code == 0) {
@@ -156,6 +174,18 @@ export default class GradeDescription extends Vue {
       Toast(ret.msg);
     }
   }
+  async getUserConfig() {
+    const ret = await getUserConfig({});
+    if (ret.code == 0) {
+      this.gradeConfig = ret.data;
+      this.data1 = ret.data["1"];
+      this.data2 = ret.data["2"];
+      this.data3 = ret.data["3"];
+      this.data4 = ret.data["4"];
+    } else {
+      Toast(ret.msg);
+    }
+  }
 
   openQrcode() {
     const canvasImg: objAny = this.$refs.canvasImg;
@@ -164,6 +194,7 @@ export default class GradeDescription extends Vue {
   mounted() {
     this.getUserInfo();
     this.getWalletInfo();
+    this.getUserConfig();
   }
 }
 </script>

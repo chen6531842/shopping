@@ -95,3 +95,9 @@ export const getTeamList = (data: objAny, config = false) => {
 export const getTeamSummary = (data: objAny, config = false) => {
   return requestPost("/v1/user/teamSummary", data, config);
 };
+/**
+ *   用户等级的配置
+ */
+export const getUserConfig = (data: objAny, config = false) => {
+  return requestPost("/v1/user/config", data, config);
+};

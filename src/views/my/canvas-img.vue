@@ -1,6 +1,9 @@
 <template>
   <div class="invite-friends" v-if="inviteFriends">
-    <div class="invite-friends-centent">
+    <div
+      class="invite-friends-centent"
+      :class="{ 'page-show': type == 'page' }"
+    >
       <!-- -->
       <div class="loading-tips" v-show="imgUrl == ''">图片加载中...</div>
       <canvas
@@ -18,7 +21,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import { objAny } from "../../common/common-interface";
 import { Toast } from "vant";
 // import { getUserQrcode } from "@/api/index";
@@ -26,6 +29,7 @@ import axios from "axios";
 import store from "@/store/index";
 @Component
 export default class CanvasImg extends Vue {
+  @Prop({ default: "" }) private type!: string;
   private inviteFriends = false;
   private qrcode_url = "";
   private userInfo: objAny = {};
@@ -176,6 +180,17 @@ export default class CanvasImg extends Vue {
     width: 100vw;
     height: 100vh;
     position: absolute;
+  }
+  .invite-friends-centent.page-show {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    .img-url {
+      width: 67vw;
+      height: 120vw;
+    }
   }
   .invite-friends-centent {
     overflow: hidden;
