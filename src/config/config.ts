@@ -1,6 +1,6 @@
 import { objAny } from "../common/common-interface";
 let configData = {
-  getCodeUrl: "https://sq.xhxim.com/get-code.html",
+  getCodeUrl: "/get-code.html",
   appId: "wxbb5cc24e67223b59"
 };
 //为了防止哪天在域名中间加了东西 或者接口域名变了 ，然后外面连接一个js 文件 js 文件里放这几个参数就可以了
