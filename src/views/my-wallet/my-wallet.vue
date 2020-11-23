@@ -63,7 +63,11 @@ export default class MyWallet extends Vue {
   public withdrawal() {
     //
     if (this.wallet.id) {
-      this.$router.push("/withdrawal-sub");
+      if (this.walletInfo.money > this.$config.minCash) {
+        this.$router.push("/withdrawal-sub");
+      } else {
+        Toast("金额不足" + this.$config.minCash + "元，暂不能提现");
+      }
     } else {
       this.$router.push("/withdrawal");
     }

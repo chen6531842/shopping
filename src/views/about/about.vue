@@ -1,7 +1,7 @@
 <template>
   <div class="my-about">
     <div class="logo-box">
-      <img src="../../assets/image/logo.png" alt="" />
+      <img :src="$config.logoUrl" alt="" />
       <p>省钱</p>
     </div>
     <div class="about-content">

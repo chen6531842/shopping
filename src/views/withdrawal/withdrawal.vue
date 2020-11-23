@@ -146,13 +146,14 @@ export default class Withdrawal extends Vue {
   }
   async myAlipay() {
     const ret = await myAlipay({});
-    if (ret.code == 0 && ret.data.id) {
-      // this.wallet = ret.data || {};
-      const data = ret.data;
-      this.formData.name = data.name;
-      this.formData.phone = data.phone;
-      this.formData.account = data.account;
-      this.isBtn();
+    if (ret.code == 0) {
+      if (ret.data.id) {
+        const data = ret.data;
+        this.formData.name = data.name;
+        this.formData.phone = data.phone;
+        this.formData.account = data.account;
+        this.isBtn();
+      }
     } else {
       Toast(ret.msg);
     }
@@ -189,6 +190,7 @@ export default class Withdrawal extends Vue {
           width: 100%;
           font-size: 2.5vh;
           border: none;
+          vertical-align: top;
         }
       }
     }
