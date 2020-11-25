@@ -1,7 +1,24 @@
 <template>
   <div class="my-withdrawal">
-    <div class="icon-box">
+    <!-- <div class="icon-box">
       <img src="../../assets/image/zfbHead.png" alt="" />
+    </div> -->
+    <div class="icon-box-content">
+      <div class="icon-flex">
+        <div class="icon-img">
+          <img :src="$config.logoUrl" alt="" />
+        </div>
+        <div class="icon-text">{{ $config.wxName }}</div>
+      </div>
+      <div class="icon-i">
+        <img src="../../assets/image/bind.png" alt="" />
+      </div>
+      <div class="icon-flex">
+        <div class="icon-img">
+          <img src="../../assets/image/pay.png" alt="" />
+        </div>
+        <div class="icon-text">支付宝</div>
+      </div>
     </div>
     <div class="input-cell-box">
       <div class="input-cell-item">
@@ -168,6 +185,37 @@ export default class Withdrawal extends Vue {
   .icon-box {
     img {
       width: 100%;
+    }
+  }
+  .icon-box-content {
+    padding: 0.3rem 0.4rem;
+    display: flex;
+    background-color: #fff;
+    .icon-flex {
+      flex: 1;
+      .icon-img {
+        width: 1.1rem;
+        height: 1.1rem;
+        margin: auto;
+        img {
+          vertical-align: top;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .icon-text {
+        font-size: 0.28rem;
+        color: #666;
+        margin-top: 0.1rem;
+        text-align: center;
+      }
+    }
+    .icon-i {
+      width: 1rem;
+      text-align: center;
+      img {
+        max-width: 0.8rem;
+      }
     }
   }
   .input-cell-box {
