@@ -42,9 +42,7 @@
           </div>
           <div class="other-info-flex">
             <div>享奖励</div>
-            <div class="number">
-              {{ teamSummary.first_child_rate * 100 || 0 }}%
-            </div>
+            <div class="number">{{ teamSummary.first_child_rate || 0 }}%</div>
           </div>
           <div class="other-info-flex">
             <div>二级好友</div>
@@ -52,9 +50,7 @@
           </div>
           <div class="other-info-flex">
             <div>享奖励</div>
-            <div class="number">
-              {{ teamSummary.second_child_rate * 100 || 0 }}%
-            </div>
+            <div class="number">{{ teamSummary.second_child_rate || 0 }}%</div>
           </div>
           <div class="other-info-flex">
             <router-link to="/grade-description">

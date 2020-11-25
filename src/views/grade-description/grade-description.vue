@@ -69,11 +69,11 @@
           <ul class="grade-ul">
             <li class="grade-item">会员基础权益</li>
             <li class="grade-item">
-              享一级粉丝奖励 {{ data2[1] * 100 || 0 }}%的提成
+              享一级粉丝奖励 {{ data2[1] || 0 }}%的提成
             </li>
-            <li class="grade-item">自购奖励加成 {{ data2[0] * 100 || 0 }}%</li>
+            <li class="grade-item">自购奖励加成 {{ data2[0] || 0 }}%</li>
             <li class="grade-item">
-              享二级粉丝奖励 {{ data2[2] * 100 || 0 }}%的提成
+              享二级粉丝奖励 {{ data2[2] || 0 }}%的提成
             </li>
           </ul>
         </div>
@@ -92,11 +92,11 @@
           <ul class="grade-ul">
             <li class="grade-item">会员基础权益</li>
             <li class="grade-item">
-              享一级粉丝奖励 {{ data3[1] * 100 || 0 }}%的提成
+              享一级粉丝奖励 {{ data3[1] || 0 }}%的提成
             </li>
-            <li class="grade-item">自购奖励加成 {{ data3[0] * 100 || 0 }}%</li>
+            <li class="grade-item">自购奖励加成 {{ data3[0] || 0 }}%</li>
             <li class="grade-item">
-              享二级粉丝奖励 {{ data3[2] * 100 || 0 }}%的提成
+              享二级粉丝奖励 {{ data3[2] || 0 }}%的提成
             </li>
           </ul>
         </div>
@@ -114,12 +114,12 @@
           <div class="grade-text">可享受权益</div>
           <ul class="grade-ul">
             <li class="grade-item">会员基础权益</li>
-            <li class="grade-item">自购奖励加成 {{ data4[0] * 100 || 0 }}%</li>
+            <li class="grade-item">自购奖励加成 {{ data4[0] || 0 }}%</li>
             <li class="grade-item">
-              享一级粉丝奖励 {{ data4[1] * 100 || 0 }}%的提成
+              享一级粉丝奖励 {{ data4[1] || 0 }}%的提成
             </li>
             <li class="grade-item">
-              享二级粉丝奖励 {{ data4[2] * 100 || 0 }}%的提成
+              享二级粉丝奖励 {{ data4[2] || 0 }}%的提成
             </li>
             <li class="grade-item">让你的微信账号具备查询机器人的功能</li>
             <li class="grade-item">

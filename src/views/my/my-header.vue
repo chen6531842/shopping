@@ -15,16 +15,12 @@
         <div class="fen-si-flex">
           <div class="tag">
             一级{{
-              userInfo.first_child_rate > 0
-                ? userInfo.first_child_rate * 100
-                : 0
+              userInfo.first_child_rate > 0 ? userInfo.first_child_rate : 0
             }}%
           </div>
           <div class="tag">
             二级{{
-              userInfo.second_child_rate > 0
-                ? userInfo.second_child_rate * 100
-                : 0
+              userInfo.second_child_rate > 0 ? userInfo.second_child_rate : 0
             }}%
           </div>
         </div>
@@ -32,7 +28,7 @@
       <div class="fen-si-box">
         <div class="fen-si-name">自购省钱加倍:</div>
         <div class="fen-si-flex">
-          {{ userInfo.self_rate >= 0 ? userInfo.self_rate * 100 : 0 }}%
+          {{ userInfo.self_rate >= 0 ? userInfo.self_rate : 0 }}%
         </div>
       </div>
       <router-link
