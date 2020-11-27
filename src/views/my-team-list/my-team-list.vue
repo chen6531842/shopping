@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="other-info">
-          <div class="other-info-flex">
+          <div class="other-info-flex" @click="queryClick(1)">
             <div>一级好友</div>
             <div class="number">{{ teamSummary.first_child_count || 0 }}</div>
           </div>
@@ -44,7 +44,7 @@
             <div>享奖励</div>
             <div class="number">{{ teamSummary.first_child_rate || 0 }}%</div>
           </div>
-          <div class="other-info-flex">
+          <div class="other-info-flex" @click="queryClick(2)">
             <div>二级好友</div>
             <div class="number">{{ teamSummary.second_child_count || 0 }}</div>
           </div>
@@ -60,10 +60,10 @@
         </div>
       </div>
 
-      <div class="tips">
+      <!-- <div class="tips">
         由于二级粉丝非您的直系好友，暂只显示一级粉丝信息，望周知
       </div>
-      <!-- <div class="tab-box">
+      <div class="tab-box">
         <div
           class="tab-div"
           :class="{ active: form.type == 1 }"
@@ -127,8 +127,15 @@ export default class MyTeam extends Vue {
   public form: objAny = {
     page: 0,
     page_size: 10,
-    type: 1
+    child_level: 1
   };
+  public queryClick(level: number) {
+    this.form.page = 1;
+    this.form.child_level = level;
+    this.finished = false;
+    this.list = [];
+    this.getUserMyTeam();
+  }
   openQrcode() {
     const canvasImg: objAny = this.$refs.canvasImg;
     canvasImg.open(this.userInfo);
@@ -259,6 +266,9 @@ export default class MyTeam extends Vue {
     font-size: 0.24rem;
     color: #999;
     text-align: center;
+    margin-top: 0.6rem;
+  }
+  .my-team-flex {
     margin-top: 0.6rem;
   }
   .tab-box {

@@ -102,11 +102,11 @@
                   <div class="info-box-div">
                     <div class="name">{{ item.goods_name }}</div>
                     <div class="money-box">
-                      <div class="money-box-flex">
+                      <!-- <div class="money-box-flex">
                         标准返利: ¥{{ item.promotion_amount }}
-                      </div>
-                      <div class="money-box-flex">
-                        实际返利:
+                      </div> -->
+                      <div class="money-box-flex" style="text-align: right;">
+                        预估返利:
                         <span class="red">¥{{ item.user_award }}</span>
                       </div>
                     </div>
