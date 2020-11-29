@@ -146,6 +146,17 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: "/withdrawal-sub-supermarket",
+    name: "提现到超市",
+    component: () =>
+      import(
+        "../views/withdrawal-sub-supermarket/withdrawal-sub-supermarket.vue"
+      ),
+    meta: {
+      isLogin: true
+    }
+  },
+  {
     path: "/share",
     name: "分享好友",
     component: () => import("../views/share/share.vue"),

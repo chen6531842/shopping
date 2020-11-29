@@ -101,3 +101,9 @@ export const getTeamSummary = (data: objAny, config = false) => {
 export const getUserConfig = (data: objAny, config = false) => {
   return requestPost("/v1/user/config", data, config);
 };
+/**
+ *   提现到商城
+ */
+export const withdrawToMall = (data: objAny, config = false) => {
+  return requestPost("/v1/wallet/withdrawToMall", data, config);
+};

@@ -4,11 +4,11 @@
       <div class="wallet-title">已结算金额(元)</div>
       <div class="wallet-name">{{ walletInfo.money | money }}</div>
       <div class="wallet-btn">
-        <!-- <div class="wallet-btn-flex">
-          <button class="my-btn wx" @click="withdrawal">微信提现</button>
-        </div> -->
         <div class="wallet-btn-flex">
-          <button class="my-btn" @click="withdrawal">支付宝提现</button>
+          <button class="my-btn" @click="withdrawal">提现到支付宝</button>
+        </div>
+        <div class="wallet-btn-flex">
+          <button class="my-btn wx" @click="cashSupermarket">提现到超市</button>
         </div>
       </div>
     </div>
@@ -89,6 +89,13 @@ export default class MyWallet extends Vue {
       this.wallet = ret.data || {};
     } else {
       Toast(ret.msg);
+    }
+  }
+  cashSupermarket() {
+    if (this.walletInfo.money > this.$config.minCash) {
+      this.$router.push("withdrawal-sub-supermarket");
+    } else {
+      Toast("金额不足" + this.$config.minCash + "元，暂不能提现");
     }
   }
 
