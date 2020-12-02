@@ -10,6 +10,8 @@
       :text="'完成首次查询再奖励' + userInfo.reg_award + '元'"
     />
     <van-notice-bar
+      :scrollable="false"
+      wrapable
       v-else
       text="余额提现到超市，可免费领取价值188元洋酒XO白兰地一瓶(包邮)"
     />
