@@ -17,6 +17,10 @@
         <input type="text" v-model="money" @input="moneyChange" />
         <!-- {{ walletInfo.money }} -->
       </p>
+      <div class="ab-tips">
+        <div class="all" @click="allMoney">全部</div>
+        <div class="tips-text">可用余额{{ walletInfo.money }}元</div>
+      </div>
     </div>
     <div class="submitPu" @click="withdrawToMall">
       确认提现到超市
@@ -38,6 +42,9 @@ export default class WithdrawalSubSupermarket extends Vue {
     if (this.money > this.walletInfo.money) {
       this.money = this.walletInfo.money;
     }
+  }
+  public allMoney() {
+    this.money = this.walletInfo.money;
   }
   async withdrawToMall() {
     if (this.money >= 0) {
@@ -125,6 +132,7 @@ export default class WithdrawalSubSupermarket extends Vue {
     height: 30vw;
     background: #fff;
     margin-top: 3.8vw;
+    position: relative;
     .title {
       width: 100%;
       display: flex;
@@ -153,6 +161,21 @@ export default class WithdrawalSubSupermarket extends Vue {
         width: 100%;
         box-sizing: border-box;
         padding-left: 10vw;
+      }
+    }
+    .ab-tips {
+      position: absolute;
+      right: 0.2rem;
+      bottom: 0.4rem;
+      .all {
+        padding: 0.1rem;
+        color: #00aaef;
+        font-size: 0.24rem;
+        text-align: right;
+      }
+      .tips-text {
+        color: #999;
+        font-size: 0.24rem;
       }
     }
   }

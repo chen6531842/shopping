@@ -4,7 +4,7 @@
  * @Date: 2020-05-27 14:00:36
  * @LastEditors: 陈钊贤
  * @Description:
- * @LastEditTime: 2020-11-15 22:34:56
+ * @LastEditTime: 2020-12-03 16:50:24
  */
 
 import Vue from "vue";
@@ -20,5 +20,15 @@ const money = (value: number | string, type?: number): string | number => {
     return "0.00";
   }
 };
+const rateMoney = (value: number | string, type?: number): string | number => {
+  if (value > 0) {
+    value = typeof value == "string" ? parseFloat(value) : value;
+    const val: string = value.toFixed(2);
+    return val;
+  } else {
+    return 0;
+  }
+};
 
 Vue.filter("money", money);
+Vue.filter("rateMoney", money);

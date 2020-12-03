@@ -17,6 +17,13 @@
         <input type="text" v-model="money" @input="moneyChange" />
         <!-- {{ walletInfo.money }} -->
       </p>
+      <div class="ab-tips">
+        <div class="all" @click="allMoney">全部</div>
+        <div class="tips-text">可用余额{{ walletInfo.money }}元</div>
+      </div>
+    </div>
+    <div class="cash-rate">
+      预计需收取服务费 {{ (money * 0.06) | rateMoney }} 元
     </div>
     <div class="submitPu" @click="withdrawApply">
       预计24小时内到账，确认提现
@@ -38,6 +45,9 @@ export default class WithdrawalSub extends Vue {
     if (this.money > this.walletInfo.money) {
       this.money = this.walletInfo.money;
     }
+  }
+  public allMoney() {
+    this.money = this.walletInfo.money;
   }
   async withdrawApply() {
     if (this.money >= 0) {
@@ -126,6 +136,7 @@ export default class WithdrawalSub extends Vue {
     height: 30vw;
     background: #fff;
     margin-top: 3.8vw;
+    position: relative;
     .title {
       width: 100%;
       display: flex;
@@ -156,6 +167,28 @@ export default class WithdrawalSub extends Vue {
         padding-left: 10vw;
       }
     }
+    .ab-tips {
+      position: absolute;
+      right: 0.2rem;
+      bottom: 0.4rem;
+      .all {
+        padding: 0.1rem;
+        color: #00aaef;
+        font-size: 0.24rem;
+        text-align: right;
+      }
+      .tips-text {
+        color: #999;
+        font-size: 0.24rem;
+      }
+    }
+  }
+  .cash-rate {
+    color: #999;
+    font-size: 0.24rem;
+    text-align: right;
+    margin-top: 0.1rem;
+    padding-right: 0.2rem;
   }
   .submitPu {
     width: 92vw;
