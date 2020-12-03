@@ -115,7 +115,7 @@ export default class MyOtherOrder extends Vue {
     const ret = await getTeamList(this.form);
     if (ret.code == 0) {
       this.list = this.list.concat(ret.data.rows);
-      if (ret.data.total_rows >= ret.data.page || ret.data.total_page == 0) {
+      if (this.form.page >= ret.data.total_page || ret.data.total_page == 0) {
         this.finished = true;
       }
     } else {
