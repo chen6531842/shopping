@@ -20,8 +20,11 @@
             <div class="money">{{ item.money }}元</div>
             <div class="time">{{ item.c_time }}</div>
           </div>
-          <div class="status" :class="{ yes: item.status == 1 }">
-            {{ item.status == 0 ? "处理中" : "已处理" }}
+          <div
+            class="status"
+            :class="{ yes: item.status == 1, error: item.status == 2 }"
+          >
+            {{ statusObj[item.status] }}
           </div>
         </li>
       </ul>
@@ -40,6 +43,11 @@ import { List, Toast } from "vant";
   }
 })
 export default class MyDeposit extends Vue {
+  public statusObj: objAny = {
+    "0": "处理中",
+    "1": "已处理",
+    "2": "提现失败"
+  };
   public form: objAny = {
     page: 0,
     page_size: 10
@@ -106,6 +114,10 @@ export default class MyDeposit extends Vue {
     .status.yes {
       font-size: 4vw;
       color: #00aaef;
+    }
+    .status.error {
+      font-size: 4vw;
+      color: rgba(248, 106, 118);
     }
   }
 }
