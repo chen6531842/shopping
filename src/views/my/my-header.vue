@@ -11,7 +11,7 @@
     </div>
     <div class="fen-si-div">
       <div class="fen-si-box">
-        <div class="fen-si-name">好友省钱奖励:</div>
+        <div class="fen-si-name">粉丝购物奖励:</div>
         <div class="fen-si-flex">
           <div class="tag">
             一级{{
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="fen-si-box">
-        <div class="fen-si-name">自购省钱加倍:</div>
+        <div class="fen-si-name">自购返利加倍:</div>
         <div class="fen-si-flex">
           {{ userInfo.self_rate >= 0 ? userInfo.self_rate : 0 }}%
         </div>
@@ -35,7 +35,7 @@
         class="go-tips-page"
         to="/grade-description"
         v-if="type == 'my'"
-        >省钱加倍></router-link
+        >奖励规则></router-link
       >
     </div>
   </div>
@@ -134,8 +134,7 @@ export default class MyHeader extends Vue {
     color: #fff;
     position: absolute;
     right: 0.2rem;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 0.2rem;
   }
 }
 </style>

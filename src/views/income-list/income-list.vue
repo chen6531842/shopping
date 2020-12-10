@@ -138,7 +138,7 @@ export default class Myincome extends Vue {
   public form: objAny = {
     page: 0,
     page_size: 10,
-    log_type: 1,
+    // log_type: 1,
     start_time: "",
     end_time: ""
   };

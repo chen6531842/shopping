@@ -48,11 +48,19 @@
           <div class="status">已解锁</div>
         </div>
         <div class="grade-box-info">
-          <p>解锁条件：扫码关注，即可成功会员</p>
+          <p>解锁条件：扫码关注，即可成为会员</p>
           <div class="grade-text">可享受权益</div>
           <ul class="grade-ul">
-            <li class="grade-item">会员基础权益</li>
+            <li class="grade-item">首单奖励2.18元（退货无效）</li>
+            <li class="grade-item">
+              自购订单奖励金加倍{{ data1[0] * 100 || 0 }}%
+            </li>
           </ul>
+          <div class="grade-text">
+            举例:自购订单返利100元，加倍{{ data1[0] * 100 || 0 }}%后，可获得{{
+              100 + data1[0] * 100
+            }}元
+          </div>
         </div>
       </div>
       <div class="grade-box" :class="{ yes: userInfo.level >= 2 }">
@@ -64,18 +72,31 @@
           </div>
         </div>
         <div class="grade-box-info">
-          <p>解锁条件：邀请 5 个粉丝完成首次查询</p>
+          <p>解锁条件：邀请 5 个粉丝完成首单（退货无效）</p>
           <div class="grade-text">可享受权益</div>
           <ul class="grade-ul">
-            <li class="grade-item">会员基础权益</li>
             <li class="grade-item">
-              享一级粉丝奖励 {{ data2[1] || 0 }}%的提成
+              享一级粉丝订单奖励金 {{ data2[1] * 100 || 0 }}%提成
             </li>
-            <li class="grade-item">自购奖励加成 {{ data2[0] || 0 }}%</li>
             <li class="grade-item">
-              享二级粉丝奖励 {{ data2[2] || 0 }}%的提成
+              享二级粉丝订单奖励 {{ data2[2] * 100 || 0 }}%提成
+            </li>
+            <li class="grade-item">
+              自购订单奖励加倍 {{ data2[0] * 100 || 0 }}%
             </li>
           </ul>
+          <div class="grade-text">举例:</div>
+          <div class="grade-text">
+            一级粉丝订单返利100元，推荐人得{{ data2[1] * 100 || 0 }}元
+          </div>
+          <div class="grade-text">
+            二级粉丝订单返利100元，推荐人得{{ data2[2] * 100 || 0 }}元
+          </div>
+          <div class="grade-text">
+            自购订单返利100元，加倍{{ data2[0] * 100 || 0 }}%后，可获得{{
+              100 + data2[0] * 100
+            }}元
+          </div>
         </div>
       </div>
       <div class="grade-box" :class="{ yes: userInfo.level >= 3 }">
@@ -87,48 +108,80 @@
           </div>
         </div>
         <div class="grade-box-info">
-          <p>解锁条件：邀请 10 个粉丝完成首次查询</p>
+          <p>解锁条件：邀请 15 个粉丝完成首单（退货无效）</p>
           <div class="grade-text">可享受权益</div>
           <ul class="grade-ul">
-            <li class="grade-item">会员基础权益</li>
             <li class="grade-item">
-              享一级粉丝奖励 {{ data3[1] || 0 }}%的提成
+              享一级粉丝订单奖励金 {{ data3[1] * 100 || 0 }}%提成
             </li>
-            <li class="grade-item">自购奖励加成 {{ data3[0] || 0 }}%</li>
+
             <li class="grade-item">
-              享二级粉丝奖励 {{ data3[2] || 0 }}%的提成
+              享二级粉丝订单奖励 {{ data3[2] * 100 || 0 }}%提成
+            </li>
+            <li class="grade-item">
+              自购订单奖励加倍 {{ data3[0] * 100 || 0 }}%
             </li>
           </ul>
+          <div class="grade-text">举例:</div>
+          <div class="grade-text">
+            一级粉丝订单返利100元，推荐人得{{ data3[1] * 100 || 0 }}元
+          </div>
+          <div class="grade-text">
+            二级粉丝订单返利100元，推荐人得{{ data3[2] * 100 || 0 }}元
+          </div>
+          <div class="grade-text">
+            自购订单返利100元，加倍{{ data3[0] * 100 || 0 }}%后，可获得{{
+              100 + data3[0] * 100
+            }}元
+          </div>
         </div>
       </div>
       <div class="grade-box" :class="userInfo.level >= 4 ? 'yes' : 'no'">
         <div class="grade-box-title">
           LV.4超级代理
           <div class="status">
-            {{ userInfo.level >= 4 ? "已解锁" : "不可解锁" }}
+            <span v-if="userInfo.level >= 4">已解锁</span>
+            <!-- <a
+              data-miniprogram-appid="wx6d34b769b93d8910"
+              data-miniprogram-path="/pages/goods_details/index?id=159"
+              href="/pages/goods_details/index?id=159"
+            > -->
+            立即解锁
+            <!-- </a -->
+            <!-- > -->
+            <!-- {{ userInfo.level >= 4 ? "已解锁" : "立即解锁" }} -->
           </div>
         </div>
         <div class="grade-box-info">
-          <p>解锁条件：解锁 LV3 会员代理后可申请</p>
-          <p>超级代理接受所有会员代理申请，人工审核完成后可解锁</p>
+          <p>解锁条件：邀请 50 个粉丝完成首单（退货无效）</p>
           <div class="grade-text">可享受权益</div>
           <ul class="grade-ul">
-            <li class="grade-item">会员基础权益</li>
-            <li class="grade-item">自购奖励加成 {{ data4[0] || 0 }}%</li>
             <li class="grade-item">
-              享一级粉丝奖励 {{ data4[1] || 0 }}%的提成
+              自购奖订单励加成 {{ data4[0] * 100 || 0 }}%
             </li>
             <li class="grade-item">
-              享二级粉丝奖励 {{ data4[2] || 0 }}%的提成
-            </li>
-            <li class="grade-item">让你的微信账号具备查询机器人的功能</li>
-            <li class="grade-item">
-              让你的微信好友全部自动转化为一级粉丝，无需邀请
+              享一级粉丝订单奖励金 {{ data4[1] * 100 || 0 }}%提成
             </li>
             <li class="grade-item">
-              不用依赖于{{ $config.wxName }}平台的推广，推广自己即赚钱返利
+              享二级粉丝订单奖励 {{ data4[2] * 100 || 0 }}%提成
+            </li>
+            <li class="grade-item">
+              自购订单奖励加倍 {{ data4[0] * 100 || 0 }}%
             </li>
           </ul>
+          <div class="grade-text">举例:</div>
+          <div class="grade-text">
+            一级粉丝订单返利100元，推荐人得{{ data4[1] * 100 || 0 }}元
+          </div>
+          <div class="grade-text">
+            二级粉丝订单返利100元，推荐人得{{ data4[2] * 100 || 0 }}元
+          </div>
+          <div class="grade-text">
+            自购订单返利100元，加倍{{ data4[0] * 100 || 0 }}%后，可获得{{
+              100 + data4[0] * 100
+            }}元
+          </div>
+          <div class="time-text">有效期至2021年12月20日</div>
         </div>
       </div>
     </div>
@@ -252,6 +305,9 @@ export default class GradeDescription extends Vue {
         height: 0.3rem;
         line-height: 0.3rem;
         border-radius: 0.2rem;
+        a {
+          color: #2d8cf0;
+        }
       }
     }
     .grade-box-info {
@@ -271,7 +327,7 @@ export default class GradeDescription extends Vue {
         .grade-item {
           padding-left: 0.2rem;
           position: relative;
-          width: 50%;
+          width: 100%;
           box-sizing: border-box;
         }
         .grade-item:after {
@@ -308,6 +364,11 @@ export default class GradeDescription extends Vue {
         width: 100%;
       }
     }
+  }
+  .time-text {
+    margin-top: 0.4rem;
+    padding: 0.2rem 0;
+    border-top: 1px dotted #999;
   }
 }
 </style>

@@ -107,7 +107,7 @@
                       </div> -->
                       <div class="money-box-flex" style="text-align: right;">
                         返利:
-                        <span class="red">¥{{ item.user_award }}</span>
+                        <span class="red">¥{{ item.estimated_award }}</span>
                       </div>
                     </div>
                   </div>

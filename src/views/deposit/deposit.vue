@@ -10,14 +10,14 @@
         <li class="deposit-item">
           <div class="deposit-icon">
             <img
-              src="../../assets/image/pay.png"
-              v-if="item.bank_name && item.bank_name != ''"
+              src="../../assets/image/cash-shopping.png"
+              v-if="item.bank_name && item.bank_name == '商城'"
               alt=""
             />
-            <img src="../../assets/image/cash-shopping.png" v-else alt="" />
+            <img src="../../assets/image/pay.png" v-else alt="" />
           </div>
           <div class="flex">
-            <div class="money">{{ item.money }}元</div>
+            <div class="money">{{ item.input_money }}元</div>
             <div class="time">{{ item.c_time }}</div>
           </div>
           <div

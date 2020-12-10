@@ -174,7 +174,7 @@ export default class ProblemList extends Vue {
         {
           qu: "会员有什么等级？",
           an:
-            '目前会员等级分为，普通、青铜、白银、黄金、白金、钻石、至尊、王者<span style="color:red">八大等级</span>。每个大等级分为I、II、III，如青铜I、青铜II，青铜III，具体升级规则，可查看每次升级时系统的提示。'
+            '目前会员等级分为，普通会员、VIP会员、会员代理、超级代理<span style="color:red">四大等级</span>。具体升级规则，可查看奖励规则页面。'
         }
       ];
     } else if (index == "4") {
