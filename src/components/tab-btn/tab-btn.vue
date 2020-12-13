@@ -49,15 +49,15 @@ export default class TabBtn extends Vue {
     font-size: 0;
     display: inline-block;
     vertical-align: top;
-    border: 1px solid rgba(233, 51, 37);
+    border: 1px solid #f48220;
     border-radius: 0.1rem;
   }
   .tab-btn-flex {
     display: inline-block;
     width: 1rem;
     vertical-align: top;
-    color: rgba(233, 51, 37);
-    border-right: 1px solid rgba(233, 51, 37);
+    color: #f48220;
+    border-right: 1px solid #f48220;
     font-size: 0.28rem;
     line-height: 0.4rem;
   }
@@ -65,7 +65,7 @@ export default class TabBtn extends Vue {
     border: none;
   }
   .tab-btn-flex.active {
-    background: rgba(233, 51, 37);
+    background: #f48220;
     color: #fff;
   }
 }

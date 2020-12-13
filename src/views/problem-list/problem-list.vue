@@ -96,7 +96,7 @@ export default class ProblemList extends Vue {
         {
           qu: "奖金提现到账时间？",
           an:
-            '到账时间为申请提现后<span style="color:red">24小时</span>内左右，系统自动打款，请注意查收。'
+            '到账时间为申请提现后<span style="color:red">1-2个工作日</span>内左右，系统自动打款，请注意查收。'
         },
         {
           qu: "填写支付宝账号后无法点击提交",

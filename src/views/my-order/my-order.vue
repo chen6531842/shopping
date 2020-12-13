@@ -3,15 +3,15 @@
     <div class="order-header">
       <div class="order-number-info">
         <div class="order-number-flex">
-          <div class="number-name">已省钱</div>
+          <div class="number-name">累计少花</div>
           <div class="number">¥{{ userInfo.total_saving | money }}</div>
         </div>
         <div class="order-number-flex tow">
-          <div class="number-name">订单数</div>
+          <div class="number-name">累计订单</div>
           <div class="number">{{ walletInfo.order_count || 0 }}</div>
         </div>
         <div class="order-number-flex three">
-          <div class="number-name">待返利</div>
+          <div class="number-name">待返利金</div>
           <div class="number">¥{{ walletInfo.unsettled | money }}</div>
         </div>
       </div>
@@ -325,7 +325,7 @@ export default class MyOrder extends Vue {
         }
       }
       .header-item.active {
-        color: #f52724 !important;
+        color: #f48220 !important;
       }
     }
     .tips-text {

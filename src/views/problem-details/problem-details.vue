@@ -33,6 +33,7 @@ export default class ProblemList extends Vue {
 .problem-list-details {
   background-color: #fff;
   padding: 30px 20px;
+  font-size: 0.28rem;
   .an {
     margin-top: 8vw;
   }

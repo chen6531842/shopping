@@ -200,7 +200,7 @@ export default class MyTeam extends Vue {
   .my-team-header {
     .header-bg {
       position: relative;
-      background: rgba(234, 104, 106);
+      background: #f48220;
       font-size: 0.28rem;
       color: #fff;
       padding-bottom: 0.8rem;
