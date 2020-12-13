@@ -66,7 +66,7 @@ export default class MyHeader extends Vue {
 <style lang="less">
 .my-header {
   padding: 0.3rem 0.4rem 0rem 0.4rem;
-  background: rgba(248, 106, 118);
+  background: #f48220;
   color: #fff;
   .my-info-box {
     display: flex;
