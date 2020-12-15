@@ -25,6 +25,10 @@
             <div class="money-name">待入账余额</div>
             <div class="money">¥{{ walletInfo.unsettled | money }}</div>
           </div>
+          <div class="my-money-flex">
+            <div class="money-name">鸡蛋账户</div>
+            <div class="money">{{ walletInfo.egg || 0 }}枚</div>
+          </div>
         </div>
         <div class="a-box">
           <div class="a-flex" @click="goUrl('/income-list')">查看明细</div>

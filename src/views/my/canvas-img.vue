@@ -113,7 +113,7 @@ export default class CanvasImg extends Vue {
     }
     const myImg = await this.loadImg(this.myImg);
     if (myImg != "") {
-      myctx.drawImage(myImg, 45 * t, canvas2.height - 175 * t, 50 * t, 50 * t);
+      myctx.drawImage(myImg, 40 * t, canvas2.height - 175 * t, 50 * t, 50 * t);
     }
     const qrcode_url = await this.loadImg(this.qrcode_url);
     if (qrcode_url) {
