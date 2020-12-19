@@ -10,17 +10,17 @@
       </div>
       <div
         class="tab-btn-flex"
-        @click="tabClick('pdd')"
-        :class="{ active: active == 'pdd' }"
-      >
-        拼多多
-      </div>
-      <div
-        class="tab-btn-flex"
         @click="tabClick('jd')"
         :class="{ active: active == 'jd' }"
       >
         京东
+      </div>
+      <div
+        class="tab-btn-flex"
+        @click="tabClick('pdd')"
+        :class="{ active: active == 'pdd' }"
+      >
+        拼多多
       </div>
     </div>
   </div>

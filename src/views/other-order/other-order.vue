@@ -59,7 +59,7 @@
                         标准返利: ¥{{ item.promotion_amount }}
                       </div> -->
                       <div class="money-box-flex" style="text-align: right;">
-                        返利:
+                        获得粉丝奖金:
                         <span class="red">¥{{ item.estimated_award }}</span>
                       </div>
                     </div>

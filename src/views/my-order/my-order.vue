@@ -106,8 +106,15 @@
                         标准返利: ¥{{ item.promotion_amount }}
                       </div> -->
                       <div class="money-box-flex" style="text-align: right;">
-                        返利:
-                        <span class="red">¥{{ item.estimated_award }}</span>
+                        <div class="total red">
+                          得: ¥
+                          {{ item.user_award }}
+                          <!-- {{ (item.user_commision + item.user_bonus) | money }} -->
+                        </div>
+
+                        <span class="">返 ¥{{ item.user_commision || 0 }}</span>
+                        +
+                        <span class="">奖 ¥{{ item.user_bonus || 0 }}</span>
                       </div>
                     </div>
                   </div>
@@ -425,6 +432,10 @@ export default class MyOrder extends Vue {
             display: flex;
             .money-box-flex {
               flex: 1;
+              color: #999;
+              .total {
+                color: rgba(255, 0, 0);
+              }
             }
           }
         }

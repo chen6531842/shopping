@@ -157,9 +157,6 @@
           <div class="grade-text">可享受权益</div>
           <ul class="grade-ul">
             <li class="grade-item">
-              自购奖订单励加成 {{ data4[0] * 100 || 0 }}%
-            </li>
-            <li class="grade-item">
               享一级粉丝订单奖励金 {{ data4[1] * 100 || 0 }}%提成
             </li>
             <li class="grade-item">
