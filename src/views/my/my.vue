@@ -11,6 +11,7 @@
     /> -->
     <van-notice-bar
       :scrollable="false"
+      v-if="!$config.ISOEM"
       wrapable
       text="余额提现到超市，可免费领取价值188元洋酒XO白兰地一瓶(包邮)"
     />
@@ -25,7 +26,7 @@
             <div class="money-name">待入账余额</div>
             <div class="money">¥{{ walletInfo.unsettled | money }}</div>
           </div>
-          <div class="my-money-flex">
+          <div class="my-money-flex" v-if="!$config.ISOEM">
             <div class="money-name">鸡蛋账户</div>
             <div class="money">{{ walletInfo.egg || 0 }}枚</div>
           </div>
