@@ -40,7 +40,7 @@
             <div>一级好友</div>
             <div class="number">{{ teamSummary.first_child_count || 0 }}</div>
           </div>
-          <div class="other-info-flex">
+          <div class="other-info-flex" v-if="!$config.ISOEM">
             <div>享奖励</div>
             <div class="number">{{ teamSummary.first_child_rate || 0 }}%</div>
           </div>
@@ -48,11 +48,11 @@
             <div>二级好友</div>
             <div class="number">{{ teamSummary.second_child_count || 0 }}</div>
           </div>
-          <div class="other-info-flex">
+          <div class="other-info-flex" v-if="!$config.ISOEM">
             <div>享奖励</div>
             <div class="number">{{ teamSummary.second_child_rate || 0 }}%</div>
           </div>
-          <div class="other-info-flex">
+          <div class="other-info-flex" v-if="!$config.ISOEM">
             <router-link to="/grade-description">
               <button class="btn-yao">奖励翻倍</button>
             </router-link>

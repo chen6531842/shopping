@@ -7,7 +7,7 @@
         <div class="wallet-btn-flex">
           <button class="my-btn" @click="withdrawal">提现到支付宝</button>
         </div>
-        <div class="wallet-btn-flex">
+        <div class="wallet-btn-flex" v-if="!$config.ISOEM">
           <button class="my-btn wx" @click="cashSupermarket">提现到超市</button>
         </div>
       </div>
@@ -66,7 +66,17 @@ export default class MyWallet extends Vue {
       if (this.walletInfo.money > this.$config.minCash) {
         this.$router.push("/withdrawal-sub");
       } else {
-        Toast("金额不足" + this.$config.minCash + "元，暂不能提现");
+        if (this.$config.ISOEM) {
+          Toast("最低提现金额" + this.$config.minCash + "元");
+        } else {
+          Toast(
+            "最低提现金额" +
+              this.$config.minCash +
+              "元，不满" +
+              this.$config.minCash +
+              "元可提现到超市"
+          );
+        }
       }
     } else {
       this.$router.push("/withdrawal");
@@ -92,11 +102,11 @@ export default class MyWallet extends Vue {
     }
   }
   cashSupermarket() {
-    if (this.walletInfo.money > this.$config.minCash) {
-      this.$router.push("withdrawal-sub-supermarket");
-    } else {
-      Toast("金额不足" + this.$config.minCash + "元，暂不能提现");
-    }
+    // if (this.walletInfo.money > this.$config.minCash) {
+    this.$router.push("withdrawal-sub-supermarket");
+    // } else {
+    //   Toast("金额不足" + this.$config.minCash + "元，暂不能提现");
+    // }
   }
 
   mounted() {

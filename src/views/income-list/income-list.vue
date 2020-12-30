@@ -1,6 +1,6 @@
 <template>
   <div class="my-income">
-    <div class="income-header">
+    <div class="income-header" v-if="!$config.ISOEM">
       <div class="income-data">
         <div class="income-data-flex">
           <div class="name">自购省</div>

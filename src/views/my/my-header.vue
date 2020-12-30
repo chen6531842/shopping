@@ -1,5 +1,5 @@
 <template>
-  <div class="my-header">
+  <div class="my-header" :class="{ oem: $config.ISOEM }">
     <div class="my-info-box">
       <div class="my-img">
         <img :src="userInfo.avatar" alt="" />
@@ -9,7 +9,7 @@
         <div class="id">您当前的身份: {{ userInfo.level_text }}</div>
       </div>
     </div>
-    <div class="fen-si-div">
+    <div class="fen-si-div" v-if="!$config.ISOEM">
       <div class="fen-si-box">
         <div class="fen-si-name">粉丝购物奖励:</div>
         <div class="fen-si-flex">
@@ -34,7 +34,7 @@
       <router-link
         class="go-tips-page"
         to="/grade-description"
-        v-if="type == 'my'"
+        v-if="type == 'my' && !$config.ISOEM"
         >奖励规则></router-link
       >
     </div>
@@ -136,5 +136,8 @@ export default class MyHeader extends Vue {
     right: 0.2rem;
     bottom: 0.2rem;
   }
+}
+.my-header.oem {
+  padding-bottom: 0.3rem;
 }
 </style>

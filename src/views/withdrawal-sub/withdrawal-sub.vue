@@ -50,7 +50,14 @@ export default class WithdrawalSub extends Vue {
     this.money = this.walletInfo.money;
   }
   async withdrawApply() {
-    if (this.money >= 0) {
+    if (!(this.money >= 0)) {
+      Toast("请输入正确的提现金额");
+    } else if (
+      this.$config.cashInit &&
+      this.money % this.$config.cashInit != 0
+    ) {
+      Toast("提现金额必须是" + this.$config.cashInit + "的倍数");
+    } else {
       const ret = await withdrawApply({
         card_id: this.wallet.id,
         money: this.money
@@ -61,8 +68,6 @@ export default class WithdrawalSub extends Vue {
       } else {
         Toast(ret.msg);
       }
-    } else {
-      Toast("请输入正确的提现金额");
     }
   }
   async getWalletInfo() {

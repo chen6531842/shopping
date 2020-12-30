@@ -51,7 +51,7 @@
           <p>解锁条件：扫码关注，即可成为会员</p>
           <div class="grade-text">可享受权益</div>
           <ul class="grade-ul">
-            <li class="grade-item">首单奖励2.18元（退货无效）</li>
+            <!-- <li class="grade-item">首单奖励2.18元（退货无效）</li> -->
             <li class="grade-item">
               自购订单奖励金加倍{{ data1[0] * 100 || 0 }}%
             </li>
@@ -312,7 +312,7 @@ export default class GradeDescription extends Vue {
       padding: 0.2rem;
       line-height: 0.4rem;
       color: #999;
-      font-size: 0.24rem;
+      font-size: 0.28rem;
       .grade-text {
         margin-top: 0.05rem;
         font-size: 0.28rem;

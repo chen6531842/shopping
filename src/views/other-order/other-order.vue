@@ -5,10 +5,10 @@
       <ul class="header-ul">
         <li
           class="header-item"
-          :class="{ active: form.status == 5 }"
-          @click="itemClick(5)"
+          :class="{ active: form.status == 2 }"
+          @click="itemClick(2)"
         >
-          <span>已结算</span>
+          <span>待结算</span>
         </li>
         <li
           class="header-item"
@@ -135,7 +135,7 @@ export default class MyOtherOrder extends Vue {
   public form: objAny = {
     page: 0,
     page_size: 10,
-    status: 5,
+    status: 2,
     platform: "tb"
   };
   public tabClick(active: string) {
