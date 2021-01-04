@@ -2,7 +2,7 @@
   <div class="my-order">
     <div class="order-header">
       <tab-btn @click="tabClick" :active="form.platform"></tab-btn>
-      <ul class="header-ul">
+      <!-- <ul class="header-ul">
         <li
           class="header-item"
           :class="{ active: form.status == 2 }"
@@ -17,7 +17,7 @@
         >
           <span>已失效</span>
         </li>
-      </ul>
+      </ul> -->
     </div>
     <div class="order-flex">
       <van-list
@@ -30,7 +30,12 @@
           <li class="order-li" v-for="(item, index) in list" :key="index">
             <div class="order-info-box">
               <div class="order-li-inline">
-                订单状态: {{ statusObj[form.status] }}
+                订单状态:
+                {{
+                  statusObj[item.order_status]
+                    ? statusObj[item.order_status]
+                    : "无效"
+                }}
               </div>
               <div class="order-li-flex">
                 订单编号: {{ item.order_sn }}
@@ -117,8 +122,7 @@ export default class MyOtherOrder extends Vue {
   private active = "tb";
   private statusObj: objAny = {
     "0": "已支付",
-    "5": "已结算",
-    "4": "已失效"
+    "5": "已结算"
   };
   private orderStatus: objAny = {
     "-1": "已支付",
@@ -157,6 +161,9 @@ export default class MyOtherOrder extends Vue {
   }
   async getOrderList() {
     this.loading = true;
+    // const form: objAny = JSON.parse(JSON.stringify(this.form));
+    // form.status = this.form.status == 2 ? "0,1,2,3" : 5;
+
     const ret = await getTeamList(this.form);
     if (ret.code == 0) {
       this.list = this.list.concat(ret.data.rows);
