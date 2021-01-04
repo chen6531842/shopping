@@ -30,7 +30,7 @@
           <li class="order-li" v-for="(item, index) in list" :key="index">
             <div class="order-info-box">
               <div class="order-li-inline">
-                订单状态:
+                结算状态:
                 {{
                   statusObj[item.order_status]
                     ? statusObj[item.order_status]
