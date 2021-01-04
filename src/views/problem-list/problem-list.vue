@@ -174,7 +174,7 @@ export default class ProblemList extends Vue {
         {
           qu: "会员有什么等级？",
           an:
-            '目前会员等级分为，普通会员、VIP会员、会员代理、超级代理<span style="color:red">四大等级</span>。具体升级规则，可查看奖励规则页面。'
+            '目前会员等级分为，<span style="color:#00aaef">普通会员、VIP会员、会员代理、超级代理</span><span style="color:red">四大等级</span>。具体升级规则，可查看奖励规则页面。'
         }
       ];
     } else if (index == "4") {
