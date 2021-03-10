@@ -4,7 +4,7 @@
  * @Date: 2020-05-22 13:50:58
  * @LastEditors: 陈钊贤
  * @Description:
- * @LastEditTime: 2020-12-08 14:13:56
+ * @LastEditTime: 2021-01-04 14:16:46
  */
 const path = require("path");
 // const vConsolePlugin = require('vconsole-webpack-plugin'); // 引入 移动端模拟开发者工具 插件 （另：https://github.com/liriliri/eruda）
@@ -57,8 +57,8 @@ module.exports = {
   devServer: {
     //  proxy: "http://192.168.12.223",
     // proxy: "http://licz-test.zq.smartpevc.com:8083",
-    proxy: "https://sq.xhxim.com/",
-    // proxy: "https://fqd.xhxim.com/",
+    // proxy: "https://sq.xhxim.com/",
+    proxy: "https://fqd.xhxim.com/",
     port: 8087
     // proxy: 'http://sys.saas-test.smartpevc.com'
   },

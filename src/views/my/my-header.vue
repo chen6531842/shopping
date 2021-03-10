@@ -5,11 +5,49 @@
         <img :src="userInfo.avatar" alt="" />
       </div>
       <div class="my-info-flex">
-        <div class="name">{{ userInfo.name }}</div>
-        <div class="id">您当前的身份: {{ userInfo.level_text }}</div>
+        <div class="name">
+          {{ userInfo.name }}
+          <router-link to="/grade-description" v-if="!$config.ISOEM">
+            <div class="tag-item">
+              {{ userInfo.level_text }}
+              <img src="../../assets/image/wen.png" alt="" />
+            </div>
+          </router-link>
+        </div>
+        <div class="id">
+          <div class="tag-item">
+            返利100% + {{ userInfo.self_rate >= 0 ? userInfo.self_rate : 0 }}%
+          </div>
+          <!-- 您当前的身份: {{ userInfo.level_text }} -->
+        </div>
       </div>
     </div>
-    <div class="fen-si-div" v-if="!$config.ISOEM">
+    <div class="header-info">
+      <div class="header-info-flex">
+        <div class="value">
+          <div class="value-text">
+            <div @click="goUrl('/income-list')">
+              ¥{{ walletInfo.money | money }}
+            </div>
+            <div class="cash-btn" @click="goUrl('/my-wallet')">提现</div>
+          </div>
+        </div>
+        <div class="name" @click="goUrl('/income-list')">账户余额</div>
+      </div>
+      <div class="header-info-flex" v-if="!$config.ISOEM">
+        <div class="value">{{ walletInfo.egg || 0 }}枚</div>
+        <div class="name">鸡蛋</div>
+      </div>
+      <div class="header-info-flex">
+        <div class="value">¥{{ walletInfo.unsettled | money }}</div>
+        <div class="name">我的待入账</div>
+      </div>
+      <div class="header-info-flex">
+        <div class="value">¥{{ walletInfo.team_income | money }}</div>
+        <div class="name">粉丝为我赚</div>
+      </div>
+    </div>
+    <!-- <div class="fen-si-div" v-if="!$config.ISOEM">
       <div class="fen-si-box">
         <div class="fen-si-name">粉丝购物奖励:</div>
         <div class="fen-si-flex">
@@ -37,7 +75,7 @@
         v-if="type == 'my' && !$config.ISOEM"
         >奖励规则></router-link
       >
-    </div>
+    </div> -->
   </div>
 </template>
 <script lang="ts">
@@ -61,6 +99,10 @@ export default class MyHeader extends Vue {
   })
   private walletInfo!: objAny;
   @Prop({ default: "" }) private type!: string;
+
+  goUrl(url: string) {
+    this.$router.push(url);
+  }
 }
 </script>
 <style lang="less">
@@ -86,6 +128,42 @@ export default class MyHeader extends Vue {
       padding-top: 0.1rem;
       .id {
         margin-top: 0.15rem;
+      }
+    }
+  }
+  .header-info {
+    background-color: rgba(51, 51, 73);
+    border-radius: 0.2rem 0.2rem 0 0;
+    text-align: center;
+    display: flex;
+    margin-top: 0.5rem;
+    position: relative;
+    .header-info-flex {
+      flex: 1;
+      padding-top: 0.3rem;
+      padding-bottom: 0.2rem;
+      .value {
+        color: #f48220;
+        font-size: 0.24rem;
+        .value-text {
+          position: relative;
+          display: inline-block;
+          .cash-btn {
+            position: absolute;
+            padding: 0.05rem 0.1rem;
+            top: -0.2rem;
+            right: -0.4rem;
+            font-size: 0.14rem;
+            color: #fff;
+            border-radius: 0.2rem;
+            background: rgba(0, 0, 0, 0.5);
+          }
+        }
+      }
+      .name {
+        color: #fff;
+        font-size: 0.24rem;
+        margin-top: 0.1rem;
       }
     }
   }
@@ -136,8 +214,25 @@ export default class MyHeader extends Vue {
     right: 0.2rem;
     bottom: 0.2rem;
   }
+  .tag-item {
+    padding: 0 0.1rem;
+    background: rgba(0, 0, 0, 0.3);
+    font-size: 0.18rem;
+    color: #fff;
+    height: 0.24rem;
+    line-height: 0.24rem;
+    display: inline-flex;
+    vertical-align: middle;
+    border-radius: 0.2rem;
+    img {
+      width: 0.2rem;
+      height: 0.2rem;
+      vertical-align: text-top;
+      margin-left: 0.05rem;
+    }
+  }
 }
-.my-header.oem {
-  padding-bottom: 0.3rem;
-}
+// .my-header.oem {
+//   padding-bottom: 0.3rem;
+// }
 </style>

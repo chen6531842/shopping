@@ -16,7 +16,7 @@
       text="余额提现到超市，可免费领取价值188元洋酒XO白兰地一瓶(包邮)"
     />
     <div class="my-centent">
-      <div class="my-money-centent">
+      <!-- <div class="my-money-centent">
         <div class="my-money-box">
           <div class="my-money-flex">
             <div class="money-name">账户余额</div>
@@ -35,38 +35,54 @@
           <div class="a-flex" @click="goUrl('/income-list')">查看明细</div>
           <div class="a-flex" @click="goUrl('/my-wallet')">申请提现</div>
         </div>
-      </div>
+      </div> -->
 
       <div class="nav-box">
         <div class="nav-flex">
           <router-link to="/my-order">
             <div class="nav-icon">
               <img src="../../assets/image/icon-order.png" alt="" />
+              <!-- <div class="nav-icon-num">+1</div> -->
             </div>
-            <div class="nav-title">我的订单</div>
+            <div class="nav-title">自购订单</div>
           </router-link>
         </div>
-        <div class="nav-flex" @click="openQrcode">
+        <!-- <div class="nav-flex" @click="openQrcode">
           <div class="nav-icon">
             <img src="../../assets/image/icon-yao-f.png" alt="" />
           </div>
           <div class="nav-title">邀请好友</div>
+        </div> -->
+        <div class="nav-flex">
+          <router-link to="/my-other-order">
+            <div class="nav-icon">
+              <img src="../../assets/image/icon-other-order.png" alt="" />
+              <!-- <div class="nav-icon-num">+1</div> -->
+            </div>
+            <div class="nav-title">粉丝订单</div>
+          </router-link>
         </div>
         <div class="nav-flex">
           <router-link to="/my-team-list">
             <div class="nav-icon">
               <img src="../../assets/image/icon-my-f.png" alt="" />
+              <!-- <div class="nav-icon-num">+1</div> -->
             </div>
             <div class="nav-title">我的粉丝</div>
           </router-link>
         </div>
-        <div class="nav-flex">
-          <router-link to="/my-other-order">
+      </div>
+      <div class="nav-box-content">
+        <div class="nav-box-title">游戏与互动</div>
+        <div class="nav-box">
+          <div class="nav-flex" @click="openQrcode">
             <div class="nav-icon">
-              <img src="../../assets/image/icon-other-order.png" alt="" />
+              <img src="../../assets/image/icon-yao-f.png" alt="" />
             </div>
-            <div class="nav-title">粉丝订单</div>
-          </router-link>
+            <div class="nav-title">我的推广海报</div>
+          </div>
+          <div class="nav-flex"></div>
+          <div class="nav-flex"></div>
         </div>
       </div>
     </div>
@@ -161,6 +177,19 @@ export default class MyPage extends Vue {
         }
       }
     }
+    .nav-box-content {
+      margin-top: 0.2rem;
+      border-radius: 0.1rem;
+      background-color: #fff;
+      .nav-box-title {
+        font-size: 0.28rem;
+        color: #333;
+        padding: 0.15rem;
+      }
+      .nav-box {
+        margin-top: 0;
+      }
+    }
     .nav-box {
       margin-top: 0.2rem;
       background-color: #fff;
@@ -178,6 +207,14 @@ export default class MyPage extends Vue {
           width: 0.6rem;
           height: 0.6rem;
           margin: auto;
+          position: relative;
+          .nav-icon-num {
+            position: absolute;
+            color: rgba(237, 127, 126);
+            top: 0.1rem;
+            left: 105%;
+            font-size: 0.26rem;
+          }
           img {
             width: 100%;
             height: 100%;
